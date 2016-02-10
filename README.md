@@ -1,1 +1,3 @@
 A simple sharp exercise, dont be to rough...
+
+testing first commit
