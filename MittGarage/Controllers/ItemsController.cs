@@ -89,6 +89,11 @@ namespace MittGarage.Controllers
             return View(garageitem);
         }
 
+        public ActionResult Main()
+        {
+            return View();
+        }
+
         //
         // GET: /Items/Delete/5
 
@@ -102,6 +107,22 @@ namespace MittGarage.Controllers
             return View(garageitem);
         }
 
+        public ActionResult CheckIn()
+        {
+            return View();
+        }
+
+        public ActionResult Checkout()
+        {
+            return View();
+        }
+
+        public ActionResult Admin()
+        {
+            return View();
+        }
+
+  
         //
         // POST: /Items/Delete/5
 

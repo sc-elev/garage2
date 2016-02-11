@@ -341,6 +341,11 @@ namespace MittGarage.Controllers
             }
         }
 
+        public ActionResult Main()
+        {
+            return View();
+        }
+
         public enum ManageMessageId
         {
             ChangePasswordSuccess,

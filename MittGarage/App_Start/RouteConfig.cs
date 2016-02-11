@@ -16,7 +16,7 @@ namespace MittGarage
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Items", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Items", action = "Main", id = UrlParameter.Optional }
             );
         }
     }
