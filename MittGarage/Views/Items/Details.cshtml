@@ -1,0 +1,36 @@
+﻿@model MittGarage.Models.GarageItem
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>GarageItem</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.regNR)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.regNR)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Owner)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Owner)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Inchecked)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Inchecked)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ItemID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
