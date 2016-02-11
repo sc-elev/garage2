@@ -1,7 +1,47 @@
-﻿@model MittGarage.Models.GarageItem
+﻿@*@model MittGarage.Models.GarageItem*@
 
 @{
-    ViewBag.Title = "Admin";
+    ViewBag.Title = "Admininistration";
 }
 
-<h2>Admin</h2>
+<h2>Administration</h2>
+
+
+
+@using (Html.BeginForm()) {
+
+    <table>
+        <tr>
+            <td>
+                <input type="text" name="SearchOption"/>
+            </td>
+            <td>
+                Registreringsnummer/ägare
+            </td>
+        </tr>
+        <tr>
+            <td>
+             <select name="SearchType" >
+                <option value="*">Alla</option>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="fiat">Fiat</option>
+                <option value="audi">Audi</option>
+                </select>
+            </td>
+            <td>
+                Bilmärke
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="SearchToday" />
+            </td>
+            <td>
+                Enbart dagens bilar
+            </td>
+        </tr>
+
+    </table>
+    <input type="submit" value="Sök"/>
+}

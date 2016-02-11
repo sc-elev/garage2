@@ -78,13 +78,13 @@ namespace MittGarage.Models
 
         }
 
-      
-
+        [Key]
+        public string Id { get; private set; }
+   
         // Mandatory attributes without defaults.
         public string Owner { get; private set; }
 
-        public string Id { get; private set; }
-
+       
         public VehicleType Type { get; set; }
 
         public DateTime checkInDate { get; protected set; }
