@@ -122,7 +122,11 @@ namespace MittGarage.Controllers
             return View();
         }
 
- 
+        public ActionResult Contact()
+        {
+            return View();
+        }
+  
         //
         // POST: /Items/Delete/5
 

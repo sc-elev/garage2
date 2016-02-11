@@ -320,6 +320,7 @@
     <Content Include="Views\Items\CheckIn.cshtml" />
     <Content Include="Views\Items\Checkout.cshtml" />
     <Content Include="Views\Items\Admin.cshtml" />
+    <Content Include="Views\Items\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
