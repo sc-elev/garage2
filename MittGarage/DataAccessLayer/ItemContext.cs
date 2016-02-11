@@ -9,6 +9,6 @@ namespace MittGarage.DataAccessLayer
     public class ItemContext : DbContext
     {
         public ItemContext() : base("DefaultConnection") { }
-        public DbSet<Models.GarageItem> Item { get; set; }
+        public DbSet<Models.Vehicle> Item { get; set; }
     }
 }

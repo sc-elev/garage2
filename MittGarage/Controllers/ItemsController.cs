@@ -27,12 +27,12 @@ namespace MittGarage.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            GarageItem garageitem = db.Item.Find(id);
-            if (garageitem == null)
+            Vehicle vehicle = db.Item.Find(id);
+            if (vehicle == null)
             {
                 return HttpNotFound();
             }
-            return View(garageitem);
+            return View(vehicle);
         }
 
         //
@@ -48,16 +48,16 @@ namespace MittGarage.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(GarageItem garageitem)
+        public ActionResult Create(Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
-                db.Item.Add(garageitem);
+                db.Item.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(garageitem);
+            return View(vehicle);
         }
 
         //
@@ -65,12 +65,12 @@ namespace MittGarage.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            GarageItem garageitem = db.Item.Find(id);
-            if (garageitem == null)
+            Vehicle vehicle = db.Item.Find(id);
+            if (vehicle == null)
             {
                 return HttpNotFound();
             }
-            return View(garageitem);
+            return View(vehicle);
         }
 
         //
@@ -99,12 +99,12 @@ namespace MittGarage.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            GarageItem garageitem = db.Item.Find(id);
-            if (garageitem == null)
+            Vehicle vehicle = db.Item.Find(id);
+            if (vehicle == null)
             {
                 return HttpNotFound();
             }
-            return View(garageitem);
+            return View(vehicle);
         }
 
         public ActionResult CheckIn()
@@ -130,8 +130,8 @@ namespace MittGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            GarageItem garageitem = db.Item.Find(id);
-            db.Item.Remove(garageitem);
+            Vehicle vehicle = db.Item.Find(id);
+            db.Item.Remove(vehicle);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

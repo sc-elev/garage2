@@ -1,9 +1,10 @@
 namespace MittGarage.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+    using MittGarage.Models;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<MittGarage.DataAccessLayer.ItemContext>
     {
@@ -16,9 +17,11 @@ namespace MittGarage.Migrations
 
         protected override void Seed(MittGarage.DataAccessLayer.ItemContext context)
         {
-            context.Item.AddOrUpdate(r => r.ItemID, new MittGarage.Models.GarageItem { regNR = createNummerplat(), ItemID = _rnd.Next(100, 999), Owner = "Anders Andersson", Vehicle = MittGarage.Models.enumType.oljetanker, Inchecked = DateTime.Now });
-
+            var car =  new CarVehicle(createNummerplat());
+            car.Type = VehicleType.oljetanker;
+            context.Item.AddOrUpdate(r => r.Id, car);
         }
+
         static public string createNummerplat()
         {
             string reg_nr = "";
