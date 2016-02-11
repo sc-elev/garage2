@@ -17,11 +17,27 @@ namespace MittGarage.Controllers
         //
         // GET: /Items/
 
-        public ActionResult Index()
+        public ActionResult Index(string term = null)
         {
+            if (term != null)
+            {
+                var model = db.Item.OrderBy(r => r.regNR).Where
+				(r => 
+                    r.regNR.Equals(term) || 
+					r.Owner.Equals(term)
+                    )
+
+                    .ToList();
+
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("_centrallagret", model);
+                }
+
+                return View(model);
+            }
             return View(db.Item.ToList());
         }
-
         //
         // GET: /Items/Details/5
 

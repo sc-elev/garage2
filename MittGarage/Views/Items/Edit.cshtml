@@ -10,11 +10,12 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
+
     <fieldset>
         <legend>GarageItem</legend>
 
         @Html.HiddenFor(model => model.ItemID)
-
+        @Html.HiddenFor(model => model.Inchecked)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.regNR)

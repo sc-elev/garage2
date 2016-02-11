@@ -1,17 +1,21 @@
 ﻿@model MittGarage.Models.GarageItem
 
+
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
+<h2>Check in</h2>
+<p>
+    @{var today = DateTime.Now; }
+</p>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
+    @today
     <fieldset>
         <legend>GarageItem</legend>
+        @Html.HiddenFor(model => model.Inchecked)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.regNR)
@@ -29,16 +33,8 @@
             @Html.ValidationMessageFor(model => model.Owner)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Inchecked)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Inchecked)
-            @Html.ValidationMessageFor(model => model.Inchecked)
-        </div>
-
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Skapa" />
         </p>
     </fieldset>
 }
