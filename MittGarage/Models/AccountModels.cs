@@ -8,6 +8,7 @@ using System.Web.Security;
 
 namespace MittGarage.Models
 {
+    #region UsersContext : DbContext Class
     public class UsersContext : DbContext
     {
         public UsersContext()
@@ -17,7 +18,9 @@ namespace MittGarage.Models
 
         public DbSet<UserProfile> UserProfiles { get; set; }
     }
+    #endregion UsersContext : DbContext Class
 
+    #region UserProfile Class
     [Table("UserProfile")]
     public class UserProfile
     {
@@ -26,7 +29,9 @@ namespace MittGarage.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
     }
+    #endregion USer Profile
 
+    #region RegisterExternalLoginModel Class
     public class RegisterExternalLoginModel
     {
         [Required]
@@ -35,7 +40,9 @@ namespace MittGarage.Models
 
         public string ExternalLoginData { get; set; }
     }
+    #endregion RegisterExternalLoginModel Class
 
+    #region LocalPasswordModel Class
     public class LocalPasswordModel
     {
         [Required]
@@ -54,7 +61,9 @@ namespace MittGarage.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+    #endregion LocalPasswordModel Class
 
+    #region LoginModel Class
     public class LoginModel
     {
         [Required]
@@ -69,7 +78,9 @@ namespace MittGarage.Models
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
+    #endregion Log-In Model
 
+    #region RegisterModel Class
     public class RegisterModel
     {
         [Required]
@@ -87,11 +98,14 @@ namespace MittGarage.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+    #endregion RegisterModel Class
 
+    #region ExternalLogin Class
     public class ExternalLogin
     {
         public string Provider { get; set; }
         public string ProviderDisplayName { get; set; }
         public string ProviderUserId { get; set; }
     }
+#endregion ExternalLogin Class
 }

@@ -21,6 +21,7 @@ namespace MittGarage.Filters
             LazyInitializer.EnsureInitialized(ref _initializer, ref _isInitialized, ref _initializerLock);
         }
 
+        #region SimpleMembershipInitializer Class
         private class SimpleMembershipInitializer
         {
             public SimpleMembershipInitializer()
@@ -46,5 +47,6 @@ namespace MittGarage.Filters
                 }
             }
         }
+        #endregion SimpleMembershipInitializer Class
     }
 }

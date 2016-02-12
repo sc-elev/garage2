@@ -14,15 +14,16 @@ namespace MittGarage.Controllers
     {
         private ItemContext db = new ItemContext();
 
-        //
+        #region Items
         // GET: /Items/
 
         public ActionResult Index()
         {
             return View(db.Item.ToList());
         }
+        #endregion Items
 
-        //
+        #region Items/Details/5
         // GET: /Items/Details/5
 
         public ActionResult Details(int id = 0)
@@ -34,16 +35,20 @@ namespace MittGarage.Controllers
             }
             return View(vehicle);
         }
+        #endregion Items/Details/5
 
-        //
+        #region --Items/Create--
+
+        #region GET
         // GET: /Items/Create
 
         public ActionResult Create()
         {
             return View();
         }
+        #endregion GET
 
-        //
+        #region POST
         // POST: /Items/Create
 
         [HttpPost]
@@ -59,8 +64,13 @@ namespace MittGarage.Controllers
 
             return View(vehicle);
         }
+        #endregion POST
 
-        //
+        #endregion --Items/Create--
+
+        #region --Items/Edit/5--
+
+        #region GET
         // GET: /Items/Edit/5
 
         public ActionResult Edit(int id = 0)
@@ -72,8 +82,9 @@ namespace MittGarage.Controllers
             }
             return View(vehicle);
         }
+        #endregion GET
 
-        //
+        #region POST
         // POST: /Items/Edit/5
 
         [HttpPost]
@@ -93,8 +104,13 @@ namespace MittGarage.Controllers
         {
             return View();
         }
+        #endregion POST
 
-        //
+        #endregion --Items/Edit/5--
+
+        #region --Items/Delete/5--
+
+        #region GET
         // GET: /Items/Delete/5
 
         public ActionResult Delete(int id = 0)
@@ -126,8 +142,9 @@ namespace MittGarage.Controllers
         {
             return View();
         }
-  
-        //
+        #endregion GET
+
+        #region POST
         // POST: /Items/Delete/5
 
         [HttpPost, ActionName("Delete")]
@@ -145,5 +162,8 @@ namespace MittGarage.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+        #endregion POST
+
+        #endregion --Items/Delete/5--
     }
 }

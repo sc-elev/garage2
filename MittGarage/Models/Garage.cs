@@ -22,11 +22,14 @@ namespace MittGarage.Models
 
         public uint Capacity { get; protected set; }
 
+        #region FreeSpace
         public uint FreeSpace
         {
             get { return Capacity - (uint)vehicles.Count; }
         }
+        #endregion FreeSpace
 
+        #region Enumerators
         public IEnumerator<Vehicle> GetEnumerator()
         {
             return vehicles.GetEnumerator();
@@ -41,6 +44,7 @@ namespace MittGarage.Models
         {
             return GetEnumerator();
         }
+        #endregion Enumerators
 
         #region --Queries--
 
@@ -151,9 +155,9 @@ namespace MittGarage.Models
 
         #endregion --Queries--
 
-        #region --Save & Load-- 
+        #region --Save & Load Functions-- 
 
-        #region Save Garage
+        #region Save Garage Function
         public void store()
         {
             string path = String.Format(PathTemplate, Id);
@@ -169,9 +173,9 @@ namespace MittGarage.Models
                 if (f != null) f.Close();
             }
         }
-        #endregion
+        #endregion Save Garage Function
 
-        #region Load Garage
+        #region Load Garage Function
         public static Garage load(string id)
         {
             string path = String.Format(PathTemplate, id);
@@ -192,19 +196,19 @@ namespace MittGarage.Models
             }
 
         }
-        #endregion
+        #endregion Load Garage Function
 
-        #endregion
+        #endregion --Save & Load Functions--
 
-        #region ClearDump
+        #region ClearDump Function
         public void ClearDump()
         {
             string path = String.Format(PathTemplate, Id);
             if (File.Exists(path)) File.Delete(path);
         }
-        #endregion
+        #endregion ClearDump Function
 
-        #region Garage Capacity, ID and Vehicles
+        #region Garage Constructor
         public Garage(string id, uint capacity)
         {
             this.Capacity = capacity;
