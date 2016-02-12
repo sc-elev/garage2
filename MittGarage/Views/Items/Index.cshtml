@@ -4,11 +4,22 @@
     ViewBag.Title = "Mitt Garage";
 }
 
-<h2>Mitt Garage</h2>
+<h2>
+    @Html.ActionLink("Mitt Garage", "Index")</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<div>
+    <form method="get">
+
+        <input type="search" name="term" />
+        <input type="submit" value="Hitta" />
+
+    </form>
+
+</div>
+
 <table>
     <tr>
         <th>
@@ -36,7 +47,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ItemID }) |
+            @Html.ActionLink("Details", "Detail", new { id=item.ItemID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
         </td>
     </tr>

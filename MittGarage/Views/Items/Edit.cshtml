@@ -1,4 +1,4 @@
-﻿@model MittGarage.Models.GarageItem
+﻿@model MittGarage.Models.Vehicle
 
 @{
     ViewBag.Title = "Edit";
@@ -10,18 +10,16 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
+
     <fieldset>
-        <legend>GarageItem</legend>
-
-        @Html.HiddenFor(model => model.ItemID)
-
+        <legend>Vehicle</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.regNR)
+            @Html.LabelFor(model => model.RegNr)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.regNR)
-            @Html.ValidationMessageFor(model => model.regNR)
+            @Html.EditorFor(model => model.RegNr)
+            @Html.ValidationMessageFor(model => model.RegNr)
         </div>
 
         <div class="editor-label">
@@ -39,7 +37,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Main")
 </div>
 
 @section Scripts {
