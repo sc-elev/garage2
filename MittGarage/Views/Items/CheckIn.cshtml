@@ -1,4 +1,4 @@
-﻿@model MittGarage.Models.GarageItem
+﻿@model MittGarage.Models.Vehicle
 
 @{
     ViewBag.Title = "CheckIn";
@@ -16,16 +16,16 @@
  
 
     <fieldset>
-        <legend>GarageItem</legend>
-        @Html.HiddenFor(model => model.Inchecked)
+        <legend>Vehicle</legend>
+
         <input type="hidden" id="Inchecked." value="@today" />
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.regNR)
+            @Html.LabelFor(model => model.RegNr)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.regNR)
-            @Html.ValidationMessageFor(model => model.regNR)
+            @Html.EditorFor(model => model.RegNr)
+            @Html.ValidationMessageFor(model => model.RegNr)
         </div>
 
         <div class="editor-label">
@@ -43,7 +43,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to main","Main")
 </div>
 
 @section Scripts {

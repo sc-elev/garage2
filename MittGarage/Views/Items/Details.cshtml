@@ -1,4 +1,4 @@
-﻿@model MittGarage.Models.GarageItem
+﻿@model MittGarage.Models.Vehicle
 
 @{
     ViewBag.Title = "Details";
@@ -7,13 +7,13 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>GarageItem</legend>
+    <legend>Vehicle</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.regNR)
+         @Html.DisplayNameFor(model => model.RegNr)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.regNR)
+        @Html.DisplayFor(model => model.RegNr)
     </div>
 
     <div class="display-label">
@@ -24,13 +24,13 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Inchecked)
+         @Html.DisplayNameFor(model => model.checkInDate)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Inchecked)
+        @Html.DisplayFor(model => model.checkInDate)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ItemID }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

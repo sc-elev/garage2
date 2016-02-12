@@ -1,4 +1,4 @@
-﻿@model MittGarage.Models.GarageItem
+﻿@model MittGarage.Models.Vehicle
 
 @{
     ViewBag.Title = "Edit";
@@ -12,17 +12,17 @@
 
 
     <fieldset>
-        <legend>GarageItem</legend>
+        <legend>Vehicle</legend>
 
-        @Html.HiddenFor(model => model.ItemID)
-        @Html.HiddenFor(model => model.Inchecked)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.checkInDate)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.regNR)
+            @Html.LabelFor(model => model.RegNr)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.regNR)
-            @Html.ValidationMessageFor(model => model.regNR)
+            @Html.EditorFor(model => model.RegNr)
+            @Html.ValidationMessageFor(model => model.RegNr)
         </div>
 
         <div class="editor-label">

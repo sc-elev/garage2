@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MittGarage.Models.GarageItem>
+﻿@model IEnumerable<MittGarage.Models.Vehicle>
 
 @{
     ViewBag.Title = "Checkout";
@@ -18,13 +18,13 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.regNR)
+            @Html.DisplayNameFor(model => model.RegNr)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Owner)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Inchecked)
+            @Html.DisplayNameFor(model => model.checkInDate)
         </th>
         <th></th>
     </tr>
