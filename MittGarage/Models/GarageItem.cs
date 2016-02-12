@@ -18,7 +18,5 @@ namespace MittGarage.Models
         public string regNR { get; set; }
         public string Owner { get; set; }
         public DateTime Inchecked { get; set; }
-
-
     }
 }

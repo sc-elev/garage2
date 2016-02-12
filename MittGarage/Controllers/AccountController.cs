@@ -17,7 +17,9 @@ namespace MittGarage.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        //
+        #region --Account/Login--
+
+        #region GET
         // GET: /Account/Login
 
         [AllowAnonymous]
@@ -26,8 +28,9 @@ namespace MittGarage.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+        #endregion GET
 
-        //
+        #region POST
         // POST: /Account/Login
 
         [HttpPost]
@@ -44,8 +47,12 @@ namespace MittGarage.Controllers
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
         }
+        #endregion POST
 
-        //
+        #endregion --Account/Login--
+
+        #region Account/Logoff
+
         // POST: /Account/LogOff
 
         [HttpPost]
@@ -57,7 +64,11 @@ namespace MittGarage.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
+        #endregion Account/Logoff
+
+        #region --Account/Register--
+
+        #region GET
         // GET: /Account/Register
 
         [AllowAnonymous]
@@ -65,8 +76,9 @@ namespace MittGarage.Controllers
         {
             return View();
         }
+        #endregion GET
 
-        //
+        #region POST
         // POST: /Account/Register
 
         [HttpPost]
@@ -92,8 +104,11 @@ namespace MittGarage.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        #endregion POST
 
-        //
+        #endregion --Account/Register--
+
+        #region Account/Disassociate
         // POST: /Account/Disassociate
 
         [HttpPost]
@@ -121,8 +136,11 @@ namespace MittGarage.Controllers
 
             return RedirectToAction("Manage", new { Message = message });
         }
+        #endregion Account/Disassociate
 
-        //
+        #region --Account/Manage--
+
+        #region GET
         // GET: /Account/Manage
 
         public ActionResult Manage(ManageMessageId? message)
@@ -136,8 +154,9 @@ namespace MittGarage.Controllers
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
         }
+        #endregion GET
 
-        //
+        #region POST
         // POST: /Account/Manage
 
         [HttpPost]
@@ -199,8 +218,13 @@ namespace MittGarage.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        #endregion POST
 
-        //
+        #endregion --Account/Manage--
+
+        #region --Account/ExternalLogin--
+
+        #region Login
         // POST: /Account/ExternalLogin
 
         [HttpPost]
@@ -210,8 +234,9 @@ namespace MittGarage.Controllers
         {
             return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
         }
+        #endregion Login
 
-        //
+        #region LoginCallback
         // GET: /Account/ExternalLoginCallback
 
         [AllowAnonymous]
@@ -243,8 +268,9 @@ namespace MittGarage.Controllers
                 return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
             }
         }
+        #endregion LoginCallback
 
-        //
+        #region LoginConfirmation 
         // POST: /Account/ExternalLoginConfirmation
 
         [HttpPost]
@@ -289,8 +315,9 @@ namespace MittGarage.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
+        #endregion LoginConfirmation
 
-        //
+        #region LoginFailiure
         // GET: /Account/ExternalLoginFailure
 
         [AllowAnonymous]
@@ -327,6 +354,9 @@ namespace MittGarage.Controllers
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
+        #endregion LoginFailiure
+
+        #endregion --Account/ExternalLogin--
 
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)

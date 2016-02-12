@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MittGarage.Models
 {
+    #region Color Enum
     public enum ColorType
     {
         black,
@@ -19,12 +20,16 @@ namespace MittGarage.Models
         cyan,
         none
     };
+    #endregion Color Enum
 
+    #region VehicleType Enum
     public enum VehicleType
     {
         car, bike, airplane, oljetanker, bus, mc, none
     }
+    #endregion VehicleType Enum
 
+    #region VehicleFactory Class
     public class VehicleFactory
     {
         public Vehicle Fabricate(string Type, List<string> cmdline)
@@ -56,8 +61,9 @@ namespace MittGarage.Models
             return v.Init(cmdline);
         }
     }
+    #endregion VehicleFactory Class
 
-
+    #region --Base of Items in Garage--
     /// <summary>
     /// The base of all items in the garage.
     /// </summary>
@@ -79,18 +85,24 @@ namespace MittGarage.Models
 
         }
 
+        #region --All Attributes--
+
+        #region Mandatory Attributes without Defaults
+        // Mandatory attributes without defaults.
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; private set; }
    
-        // Mandatory attributes without defaults.
+        
         public string Owner { get; private set; }
 
        
         public VehicleType Type { get; set; }
 
         public DateTime checkInDate { get; protected set; }
+        #endregion Mandatory Attributes without Defaults
 
+        #region Searchable Optional Attributes
         // Searchable, optional attributes.
         public ColorType Color { get; protected set; }
 
@@ -99,7 +111,11 @@ namespace MittGarage.Models
         public string RegNr { get; set; }
 
         public string Brand { get; protected set; }
+        #endregion Searchable Optional Attributes
 
+        #endregion --All Attributes--
+
+        #region Vehicle ID Compare
         // Two Vehicles are the same if they have the same Id.
         public override bool Equals(System.Object other)
         {
@@ -113,7 +129,9 @@ namespace MittGarage.Models
         {
             return Id.GetHashCode();
         }
+        #endregion Vehicle ID Compare
 
+        #region Parse and Store Commandline Attributes
         // Parse and store commandline attributes.
         // Default implementation takes <reg nr> [type [color]]
         public virtual Vehicle Init(List<string> attr)
@@ -133,6 +151,9 @@ namespace MittGarage.Models
             }
             return this;
         }
+        #endregion Parse and Store Commandline Attributes
+
+        #region Vehicle Constructor
 
         public Vehicle(string owner, VehicleType type, Object now = null)
         {
@@ -147,7 +168,13 @@ namespace MittGarage.Models
             Wheels = -1;
             checkInDate = now == null ? DateTime.Now : (DateTime)now;
         }
+
+        #endregion Vehicle Constructor
+
     }
+    #endregion Base of All Items in Garage
+
+    #region --Serializeables--
 
     #region Serializable Bus
     [Serializable()]
@@ -265,4 +292,5 @@ namespace MittGarage.Models
     }
     #endregion
 
+    #endregion --Serializeables--
 }

@@ -10,18 +10,24 @@ using System.Linq;
     {
         static Random _rnd = new Random();
 
+        #region Migration Config
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
+        #endregion Migration Config
 
+        #region Seed
         protected override void Seed(MittGarage.DataAccessLayer.ItemContext context)
         {
             var car =  new CarVehicle(createNummerplat());
             car.Type = VehicleType.oljetanker;
             context.Item.AddOrUpdate(r => r.Id, car);
         }
+        #endregion Seed
 
+        #region CreateNummerPlat
+        //Randomizes new numberplates
         static public string createNummerplat()
         {
             string reg_nr = "";
@@ -33,11 +39,14 @@ using System.Linq;
             reg_nr = reg_nr + randomIn.ToString();
             return reg_nr;
         }
+        #endregion CreateNummerPlat
 
+        #region GetChar
         public static char getChar(int position)
         {
             string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             return chars[position];
         }
+        #endregion GetChar
     }
 }
