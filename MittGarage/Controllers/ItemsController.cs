@@ -19,11 +19,11 @@ namespace MittGarage.Controllers
 
         public ActionResult Index(string term = null)
         {
-            if (term != null)
-            {
-                var model = db.Item.OrderBy(r => r.regNR).Where
+            //if (term != null)
+            //{
+                var model = db.Item.OrderBy(r => r.RegNr).Where
 				(r => 
-                    r.regNR.Equals(term) || 
+                    r.RegNr.Equals(term) || 
 					r.Owner.Equals(term)
                     )
 
@@ -35,8 +35,8 @@ namespace MittGarage.Controllers
                 }
 
                 return View(model);
-            }
-            return View(db.Item.ToList());
+            //}
+            //return View(db.Item.ToList());
         }
         //
         // GET: /Items/Details/5
@@ -94,15 +94,15 @@ namespace MittGarage.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(GarageItem garageitem)
+        public ActionResult Edit(Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(garageitem).State = EntityState.Modified;
+                db.Entry(vehicle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(garageitem);
+            return View(vehicle);
         }
 
         public ActionResult Main()

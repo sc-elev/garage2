@@ -13,9 +13,11 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     @today
+    
     <fieldset>
         <legend>GarageItem</legend>
         @Html.HiddenFor(model => model.Inchecked)
+        <input type="hidden" id="Inchecked." value="@today" />
 
         <div class="editor-label">
             @Html.LabelFor(model => model.regNR)

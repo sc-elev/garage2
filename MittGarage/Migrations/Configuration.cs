@@ -1,6 +1,6 @@
 namespace MittGarage.Migrations
 {
-    using MittGarage.Models;
+using MittGarage.Models;
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
