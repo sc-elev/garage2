@@ -108,7 +108,7 @@ namespace MittGarage.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(GarageItem garageitem)
+        public ActionResult Edit(Vehicle garageitem)
         {
             if (ModelState.IsValid)
             {
