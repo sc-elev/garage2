@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace MittGarage.Models
@@ -79,6 +80,7 @@ namespace MittGarage.Models
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; private set; }
    
         // Mandatory attributes without defaults.
