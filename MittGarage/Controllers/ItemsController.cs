@@ -17,13 +17,32 @@ namespace MittGarage.Controllers
         #region Items
         // GET: /Items/
 
-        public ActionResult Index()
+        public ActionResult Index(string term = null)
         {
+            if (term != null)
+            {
+                var model = db.Item.OrderBy(r => r.RegNr).Where
+				(r => 
+                    r.RegNr.Equals(term) || 
+					r.Owner.Equals(term)
+                    )
+
+                    .ToList();
+
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("_centrallagret", model);
+                }
+
+                return View(model);
+            }
             return View(db.Item.ToList());
         }
+
         #endregion Items
 
         #region Items/Details/5
+
         // GET: /Items/Details/5
 
         public ActionResult Details(int id = 0)
