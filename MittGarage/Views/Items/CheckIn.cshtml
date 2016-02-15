@@ -1,9 +1,9 @@
 ﻿@model MittGarage.Models.Vehicle
 
 @{
-    ViewBag.Title = "CheckIn";
+    ViewBag.Title = "Check in";
 }
-
+<h2>Check in</h2>
 <p>
     @{
         var today = DateTime.Now;
@@ -41,10 +41,6 @@
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Main")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
