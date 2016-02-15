@@ -20,9 +20,65 @@ using System.Linq;
         #region Seed
         protected override void Seed(MittGarage.DataAccessLayer.ItemContext context)
         {
-            var car =  new CarVehicle(createNummerplat());
-            car.Type = VehicleType.oljetanker;
+            var car =  new CarVehicle("Teo");
+            car.RegNr = createNummerplat();
+            car.Type = VehicleType.car;
             context.Item.AddOrUpdate(r => r.Id, car);
+            context.SaveChanges();
+
+            car = new CarVehicle("Kalle");
+            car.RegNr = createNummerplat();
+            car.Type = VehicleType.car;
+            context.Item.AddOrUpdate(r => r.Id, car);
+            context.SaveChanges();
+
+            var boat = new BoatVehicle("kapten SVartskägg");
+            boat.RegNr = createNummerplat();
+            boat.Type = VehicleType.oljetanker;
+            context.Item.AddOrUpdate(r => r.Id, boat);
+            context.SaveChanges();
+
+            boat = new BoatVehicle("kapten SVartskägg");
+            boat.RegNr = createNummerplat();
+            boat.Type = VehicleType.airplane;
+            context.Item.AddOrUpdate(r => r.Id, boat);
+            context.SaveChanges();
+
+            boat = new BoatVehicle("Röde Baron");
+            boat.RegNr = createNummerplat();
+            boat.Type = VehicleType.airplane;
+            context.Item.AddOrUpdate(r => r.Id, boat);
+            context.SaveChanges();
+
+            boat = new BoatVehicle("knutten Knut");
+            boat.RegNr = createNummerplat();
+            boat.Type = VehicleType.mc;
+            context.Item.AddOrUpdate(r => r.Id, boat);
+            context.SaveChanges();
+
+            boat = new BoatVehicle("Arne");
+            boat.RegNr = createNummerplat();
+            boat.Type = VehicleType.bus;
+            context.Item.AddOrUpdate(r => r.Id, boat);
+            context.SaveChanges();
+
+            boat = new BoatVehicle("Prinsessan Madde");
+            boat.RegNr = createNummerplat();
+            boat.Type = VehicleType.oljetanker;
+            context.Item.AddOrUpdate(r => r.Id, boat);
+            context.SaveChanges();
+
+            boat = new BoatVehicle("Major MAjor Major Major");
+            boat.RegNr = createNummerplat();
+            boat.Type = VehicleType.mc;
+            context.Item.AddOrUpdate(r => r.Id, boat);
+            context.SaveChanges();
+
+            boat = new BoatVehicle("Bo Ek");
+            boat.RegNr = createNummerplat();
+            boat.Type = VehicleType.car;
+            context.Item.AddOrUpdate(r => r.Id, boat);
+            context.SaveChanges();
         }
         #endregion Seed
 
