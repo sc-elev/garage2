@@ -192,10 +192,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602110855334_InitialCreate.cs" />
-    <Compile Include="Migrations\201602110855334_InitialCreate.Designer.cs">
-      <DependentUpon>201602110855334_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201602120834422_Initial.cs" />
     <Compile Include="Migrations\201602120834422_Initial.Designer.cs">
       <DependentUpon>201602120834422_Initial.cs</DependentUpon>
@@ -318,7 +314,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Items\Details.cshtml" />
-    <Content Include="Views\Items\Create.cshtml" />
     <Content Include="Views\Items\Edit.cshtml" />
     <Content Include="Views\Items\Delete.cshtml" />
     <Content Include="Views\Items\Main.cshtml" />
@@ -334,9 +329,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602110855334_InitialCreate.resx">
-      <DependentUpon>201602110855334_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602120834422_Initial.resx">
       <DependentUpon>201602120834422_Initial.cs</DependentUpon>
     </EmbeddedResource>

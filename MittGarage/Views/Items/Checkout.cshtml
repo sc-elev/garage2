@@ -1,10 +1,10 @@
-﻿@model IEnumerable<MittGarage.Models.Vehicle>
+﻿@model MittGarage.Models.Vehicle
 
 @{
-    ViewBag.Title = "Checkout";
+    ViewBag.Title = "Check out";
 }
 
-<h2>Checkout</h2>
+<h2>Check out</h2>
 <div>
     <form method="get">
 
@@ -29,6 +29,24 @@
         <th></th>
     </tr>
 
-
+    @foreach (var model in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.RegNr)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Owner)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.checkInDate)
+            </td>
+            <td>
+                <p>
+                    @Html.ActionLink("Checka ut", "Delete", new { id = item.ItemID })
+                </p>
+            </td>
+        </tr>
+    }
 
 </table>
