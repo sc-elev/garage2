@@ -185,7 +185,19 @@ namespace MittGarage.Controllers
         public ActionResult CheckIn()
         {
             return View();
+       
         }
+
+        [HttpPost]
+        public ActionResult CheckIn(VehicleCtx ctx)
+        {
+            var car = new CarVehicle(ctx.Owner);
+            car.RegNr = ctx.RegNr;
+            Garage garage = new Garage("default", 50);
+            garage.Add(car);
+            return RedirectToAction("Main");
+        }
+
 
         public ActionResult Admin()
         {

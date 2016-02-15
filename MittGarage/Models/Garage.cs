@@ -57,6 +57,8 @@ namespace MittGarage.Models
             if (vehicles.Count >= Capacity)
                 throw new InvalidOperationException();
             vehicles.Add(vehicle);
+            db.Item.Add(vehicle);
+            db.SaveChanges();
         }
         #endregion Add Vehicle
 
@@ -230,6 +232,8 @@ namespace MittGarage.Models
         {
             db = new ItemContext();
             vehicles = db.Item.ToList();
+            this.Id = id;
+            this.Capacity = capacity;
         }
         #endregion
     }
