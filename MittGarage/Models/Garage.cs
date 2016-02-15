@@ -17,8 +17,6 @@ namespace MittGarage.Models
     {
         protected List<Vehicle> vehicles;
 
-        protected const string PathTemplate = @"../..garage-{0}.bin";
-
         private ItemContext db = new ItemContext();
 
         public string Id { get; private set; }
@@ -172,60 +170,6 @@ namespace MittGarage.Models
         #endregion --Queries--
 
         #region --Save & Load Functions-- 
-
-        #region Save Garage Function
-        public void store()
-        {
-            string path = String.Format(PathTemplate, Id);
-            BinaryFormatter serializer = new BinaryFormatter();
-            Stream f = null;
-            try
-            {
-                f = File.Create(path);
-                serializer.Serialize(f, this);
-            }
-            finally
-            {
-                if (f != null) f.Close();
-            }
-        }
-        #endregion Save Garage Function
-
-        #region Load Garage Function
-        public static Garage load(string id)
-        {
-            string path = String.Format(PathTemplate, id);
-            if (!File.Exists(path))
-            {
-                throw new InvalidOperationException("No dump stored for " + id);
-            }
-            BinaryFormatter formatter = new BinaryFormatter();
-            Stream s = null;
-            try
-            {
-                s = File.OpenRead(path);
-                return (Garage)formatter.Deserialize(s);
-            }
-            finally
-            {
-                if (s != null) s.Close();
-            }
-
-        }
-        #endregion Load Garage Function
-
-        #endregion --Save & Load Functions--
-
-        #region ClearDump Function
-        public void ClearDump()
-        {
-            string path = String.Format(PathTemplate, Id);
-            if (File.Exists(path)) File.Delete(path);
-        }
-        #endregion ClearDump Function
-
-        #region Garage Constructor
-      
 
         public Garage(string id, uint capacity)
            
