@@ -41,6 +41,7 @@ namespace MittGarage.Controllers
             }
             return View(db.Item.ToList());
         }
+
         public ActionResult CheckOut(string term = null)
         {
             if (term != null
@@ -68,18 +69,22 @@ namespace MittGarage.Controllers
 
         #region Items/Details/5
 
-        public ActionResult List(SearchCtx ctx)
+        [HttpPost]
+        public ActionResult Search(SearchCtx ctx)
         {
-            return View(garage.Search(ctx));
+            TempData["vehicles"] = garage.Search(ctx).ToList<Vehicle>();
+            return List();
         }
 
-        public ActionResult List(List<Vehicle> vehicles)
+
+        public ActionResult List()
         {
+            List<Vehicle> vehicles = (List<Vehicle>)TempData["vehicles"];
+            if (vehicles.Count == 0) return RedirectToAction("NotFound");
             return View(vehicles);
         }
-        
 
-        //
+
         // GET: /Items/Details/5
 
         public ActionResult Details(int id = 0)
@@ -132,10 +137,8 @@ namespace MittGarage.Controllers
         public ActionResult Edit(int id = 0)
         {
             Vehicle vehicle = db.Item.Find(id);
-            if (vehicle == null)
-            {
-                return RedirectToAction("NotFound");
-            }
+            if (vehicle == null) return RedirectToAction("NotFound");
+            TempData["vehicles"] = new List<Vehicle> { vehicle };
             return RedirectToAction("List");
         }
         #endregion GET
@@ -184,11 +187,6 @@ namespace MittGarage.Controllers
             return View();
         }
 
-        //public ActionResult Checkout()
-        //{
-        //    return View();
-        //}
-
         public ActionResult Admin()
         {
             return View();
@@ -201,7 +199,8 @@ namespace MittGarage.Controllers
             Garage garage = new Garage("default", 50);
             List<Vehicle> found = garage.Search(ctx).ToList();
             if (found.Count == 0) return RedirectToAction("NotFound");
-            return View(found);
+            TempData["vehicles"] = found;
+            return RedirectToAction("List");
         }
 
         public ActionResult Contact()
