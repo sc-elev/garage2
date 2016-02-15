@@ -16,7 +16,10 @@ namespace MittGarage.Controllers
 
         #region Items
         // GET: /Items/
-
+        public ActionResult NotFound()
+        {
+            return View();
+        }
         public ActionResult Index(string term = null)
         {
             if (term != null)
@@ -25,6 +28,28 @@ namespace MittGarage.Controllers
 				(r => 
                     r.RegNr.Equals(term) || 
 					r.Owner.Equals(term)
+                    )
+
+                    .ToList();
+
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("_centrallagret", model);
+                }
+
+                return View(model);
+            }
+            return View(db.Item.ToList());
+        }
+        public ActionResult CheckOut(string term = null)
+        {
+            if (term != null
+                )
+            {
+                var model = db.Item.OrderBy(r => r.RegNr).Where
+                (r =>
+                    r.RegNr.Equals(term) ||
+                    r.Owner.Equals(term)
                     )
 
                     .ToList();
@@ -62,7 +87,7 @@ namespace MittGarage.Controllers
             Vehicle vehicle = db.Item.Find(id);
             if (vehicle == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("NotFound");
             }
             return View(vehicle);
         }
@@ -109,7 +134,7 @@ namespace MittGarage.Controllers
             Vehicle vehicle = db.Item.Find(id);
             if (vehicle == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("NotFound");
             }
             return RedirectToAction("List");
         }
@@ -149,7 +174,7 @@ namespace MittGarage.Controllers
             Vehicle vehicle = db.Item.Find(id);
             if (vehicle == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("NotFound");
             }
             return View(vehicle);
         }
@@ -159,10 +184,10 @@ namespace MittGarage.Controllers
             return View();
         }
 
-        public ActionResult Checkout()
-        {
-            return View();
-        }
+        //public ActionResult Checkout()
+        //{
+        //    return View();
+        //}
 
         public ActionResult Admin()
         {
@@ -175,7 +200,7 @@ namespace MittGarage.Controllers
         {
             Garage garage = new Garage("default", 50);
             List<Vehicle> found = garage.Search(ctx).ToList();
-            if (found.Count == 0) return HttpNotFound();
+            if (found.Count == 0) return RedirectToAction("NotFound");
             return View(found);
         }
 

@@ -192,9 +192,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602151236244_new id, next try.cs" />
-    <Compile Include="Migrations\201602151236244_new id, next try.Designer.cs">
-      <DependentUpon>201602151236244_new id, next try.cs</DependentUpon>
+    <Compile Include="Migrations\201602151251184_andra.cs" />
+    <Compile Include="Migrations\201602151251184_andra.Designer.cs">
+      <DependentUpon>201602151251184_andra.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -324,6 +324,8 @@
     <Content Include="Views\Items\Checkout.cshtml" />
     <Content Include="Views\Items\Admin.cshtml" />
     <Content Include="Views\Items\Contact.cshtml" />
+    <Content Include="Views\Items\List.cshtml" />
+    <Content Include="Views\Items\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -333,8 +335,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602151236244_new id, next try.resx">
-      <DependentUpon>201602151236244_new id, next try.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602151251184_andra.resx">
+      <DependentUpon>201602151251184_andra.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
