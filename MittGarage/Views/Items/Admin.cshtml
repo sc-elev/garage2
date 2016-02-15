@@ -1,4 +1,4 @@
-﻿@*@model MittGarage.Models.Vehicle*@
+﻿@model MittGarage.Models.SearchCtx
 
 @{
     ViewBag.Title = "Admininistration";
@@ -7,42 +7,41 @@
 <h2>Administration</h2>
 
 
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Admin", "Items")) {
 
     <table>
         <tr>
             <td>
-                <input type="text" name="SearchOption"/>
-            </td>
-            <td>
                 Registreringsnummer/ägare
             </td>
-        </tr>
-        <tr>
             <td>
-             <select name="SearchType" >
-                <option value="*">Alla</option>
-                <option value="bus">Buss</option>
-                <option value="plane">Flygplan</option>
-                <option value="mc">Motorcykel</option>
-                <option value="boat">Båt</option>
-                <option value="car">Bil</option>
-                </select>
-            </td>
-            <td>
-                Bilmärke
+                @Html.EditorFor(model => model.Searchstring)
+                @Html.ValidationMessageFor(model => model.Searchstring)
             </td>
         </tr>
         <tr>
             <td>
-                <input type="checkbox" name="SearchToday" />
+                Fordonstyp
             </td>
+            <td>
+                @Html.EnumDropDownListFor(model => model.Type)
+            </td>
+        </tr>
+        <tr>
             <td>
                 Enbart dagens bilar
             </td>
+            <td>
+                @Html.CheckBoxFor(model => model.OnlyToday)
+            </td>
         </tr>
-
+        <tr>
+            <td> 
+            </td>
+            <td>
+                <input type="submit" value="Sök" />
+            </td>
+        </tr>
     </table>
-    <input type="submit" value="Sök"/>
+   
 }

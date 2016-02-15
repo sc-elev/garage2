@@ -10,7 +10,7 @@ using MittGarage.DataAccessLayer;
 
 namespace MittGarage.Controllers
 {
-    public class ItemsController : Controller
+    public class ItemsController : BaseController
     {
         private ItemContext db = new ItemContext();
 
@@ -43,6 +43,18 @@ namespace MittGarage.Controllers
 
         #region Items/Details/5
 
+        public ActionResult List(SearchCtx ctx)
+        {
+            return View(garage.Search(ctx));
+        }
+
+        public ActionResult List(List<Vehicle> vehicles)
+        {
+            return View(vehicles);
+        }
+        
+
+        //
         // GET: /Items/Details/5
 
         public ActionResult Details(int id = 0)
@@ -78,7 +90,7 @@ namespace MittGarage.Controllers
             {
                 db.Item.Add(vehicle);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Main");
             }
 
             return View(vehicle);
@@ -99,7 +111,7 @@ namespace MittGarage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vehicle);
+            return RedirectToAction("List");
         }
         #endregion GET
 
@@ -114,7 +126,7 @@ namespace MittGarage.Controllers
             {
                 db.Entry(garageitem).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Main");
             }
             return View(garageitem);
         }
@@ -157,6 +169,16 @@ namespace MittGarage.Controllers
             return View();
         }
 
+        [HttpPost, ActionName("Admin")]
+//        [ValidateAntiForgeryToken]
+        public ActionResult Admin(SearchCtx ctx)
+        {
+            Garage garage = new Garage("default", 50);
+            List<Vehicle> found = garage.Search(ctx).ToList();
+            if (found.Count == 0) return HttpNotFound();
+            return View(found);
+        }
+
         public ActionResult Contact()
         {
             return View();
@@ -173,7 +195,7 @@ namespace MittGarage.Controllers
             Vehicle vehicle = db.Item.Find(id);
             db.Item.Remove(vehicle);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Main");
         }
 
         protected override void Dispose(bool disposing)

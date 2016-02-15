@@ -8,15 +8,18 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using MittGarage.DataAccessLayer;
 
 namespace MittGarage.Models
 {
     [Serializable()]
-    class Garage : IEnumerable<Vehicle>
+    public class Garage : IEnumerable<Vehicle>
     {
         protected List<Vehicle> vehicles;
 
         protected const string PathTemplate = @"../..garage-{0}.bin";
+
+        private ItemContext db = new ItemContext();
 
         public string Id { get; private set; }
 
@@ -63,7 +66,7 @@ namespace MittGarage.Models
             Remove(v.Id);
         }
 
-        public void Remove(string key)
+        public void Remove(int key)
         {
             int ix;
             try
@@ -100,7 +103,7 @@ namespace MittGarage.Models
         #endregion
 
         #region Reg Query
-        public Vehicle FindById(string id)
+        public Vehicle FindById(uint id)
         {
             return vehicles
                         .Where(v => v.Id == id)
@@ -149,6 +152,17 @@ namespace MittGarage.Models
                       .Where(v => color == ColorType.none || v.Color == color)
                       .OrderBy (v => v.checkInDate)
                       .ToArray();
+        }
+
+        public Vehicle[] Search(SearchCtx ctx)
+        {
+            return vehicles
+                .Where(v => ctx.Type == VehicleType.none || ctx.Type == v.Type)
+                .Where(v => !ctx.OnlyToday 
+                            || DateTime.Now.Day == v.checkInDate.Day)
+                .Where(v => ctx.Searchstring == v.RegNr 
+                            || ctx.Searchstring == v.Owner)
+                .ToArray();  
         }
 
         #endregion Specific Search Queries
@@ -209,11 +223,13 @@ namespace MittGarage.Models
         #endregion ClearDump Function
 
         #region Garage Constructor
+      
+
         public Garage(string id, uint capacity)
+           
         {
-            this.Capacity = capacity;
-            vehicles = new List<Vehicle>();
-            this.Id = id;
+            db = new ItemContext();
+            vehicles = db.Item.ToList();
         }
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MittGarage.Models.GarageItem>
+﻿@model IEnumerable<MittGarage.Models.Vehicle>
 
 @{
     ViewBag.Title = "Mitt Garage";
@@ -23,13 +23,13 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.regNR)
+            @Html.DisplayNameFor(model => model.RegNr)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Owner)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Inchecked)
+            @Html.DisplayNameFor(model => model.checkInDate)
         </th>
         <th></th>
     </tr>
@@ -37,18 +37,18 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.regNR)
+            @Html.DisplayFor(modelItem => item.RegNr)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Owner)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Inchecked)
+            @Html.DisplayFor(modelItem => item.checkInDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |
-            @Html.ActionLink("Details", "Detail", new { id=item.ItemID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Detail", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

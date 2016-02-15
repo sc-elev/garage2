@@ -91,7 +91,7 @@ namespace MittGarage.Models
         // Mandatory attributes without defaults.
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; private set; }
+        public int Id { get; private set; }
    
         
         public string Owner { get; private set; }
@@ -162,7 +162,7 @@ namespace MittGarage.Models
             LastId += 1;
             Owner = owner;
             this.Type = type;
-            Id = LastId.ToString();
+            Id = LastId;
             Color = ColorType.none;
             RegNr = null;
             Wheels = -1;
@@ -189,6 +189,8 @@ namespace MittGarage.Models
         }
 
         public BusVehicle(string owner) : base(owner, VehicleType.bus) { }
+
+        public BusVehicle() : this("Unknown") { }
 
     }
     #endregion
@@ -233,6 +235,8 @@ namespace MittGarage.Models
         }
 
         public PlaneVehicle(string owner) : base(owner, VehicleType.airplane) { }
+
+        public PlaneVehicle(): this("Unknown") {}
     }
     #endregion
 
@@ -248,6 +252,8 @@ namespace MittGarage.Models
         }
 
         public McVehicle(string owner) : base(owner, VehicleType.mc) { }
+
+        public McVehicle() : this("Unknown") { }
 
     }
 
@@ -274,6 +280,8 @@ namespace MittGarage.Models
 
         public BoatVehicle(string owner) : base(owner, VehicleType.oljetanker) { }
 
+        public BoatVehicle() : this("Unknown") {}
+
     }
     #endregion
 
@@ -289,6 +297,8 @@ namespace MittGarage.Models
         }
 
         public CarVehicle(string owner) : base(owner, VehicleType.car) { }
+
+        public CarVehicle() : this ("Unknown") {}
     }
     #endregion
 
