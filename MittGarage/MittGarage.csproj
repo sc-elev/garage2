@@ -323,6 +323,7 @@
     <Content Include="Views\Items\Contact.cshtml" />
     <Content Include="Views\Items\List.cshtml" />
     <Content Include="Views\Items\NotFound.cshtml" />
+    <Content Include="Views\Items\CheckinOK.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

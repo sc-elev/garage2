@@ -8,6 +8,8 @@
 <div>
     @using (Html.BeginForm())
     {
+        @Html.AntiForgeryToken()
+        <div>Ägare/Registreringsnummer/checkin id</div>
         <input type="text" name="term" />
         <input type="submit" value="Hitta" />
     }

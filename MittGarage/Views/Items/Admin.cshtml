@@ -7,8 +7,9 @@
 <h2>Administration</h2>
 
 
-@using (Html.BeginForm("Admin", "Items")) {
-
+@using (Html.BeginForm("Admin", "Items"))
+{
+    @Html.AntiForgeryToken()
     <table>
         <tr>
             <td>

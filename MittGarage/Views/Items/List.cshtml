@@ -6,6 +6,10 @@
 <table class="lists">
     <tr>
         <th>
+            <div>Checkin ID</div>
+
+        </th>
+        <th>
             <div>Regnummer</div>
             
         </th>
@@ -21,6 +25,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.RegNr)
         </td>

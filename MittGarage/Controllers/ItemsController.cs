@@ -16,6 +16,7 @@ namespace MittGarage.Controllers
 
         #region Items
         // GET: /Items/
+
         public ActionResult NotFound()
         {
             return View();
@@ -49,12 +50,15 @@ namespace MittGarage.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CheckOut(string term = null)
         {
             if (term == null) return RedirectToAction("NotFound");
             
             var model = db.Item                        
-                            .Where (r => r.RegNr == term || r.Owner == term)
+                            .Where (r => r.RegNr == term 
+                                         || r.Owner == term
+                                         || r.Id.ToString() == term)
                             .OrderBy(r => r.RegNr)
                             .ToList();
             //if (Request.IsAjaxRequest())
@@ -70,6 +74,7 @@ namespace MittGarage.Controllers
         #region Items/Details/5
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Search(SearchCtx ctx)
         {
             TempData["vehicles"] = garage.Search(ctx).ToList<Vehicle>();
@@ -183,18 +188,25 @@ namespace MittGarage.Controllers
 
         public ActionResult CheckIn()
         {
-            return View();
-       
+            return View();      
+        }
+
+        public ActionResult CheckInOK()
+        {
+            var vehicle = (Vehicle)TempData["vehicle"];
+            return View(vehicle);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CheckIn(VehicleCtx ctx)
         {
             var car = new CarVehicle(ctx.Owner);
             car.RegNr = ctx.RegNr;
             Garage garage = new Garage("default", 50);
             garage.Add(car);
-            return RedirectToAction("Main");
+            TempData["vehicle"] = car;
+            return RedirectToAction("CheckinOK");
         }
 
 
@@ -204,7 +216,7 @@ namespace MittGarage.Controllers
         }
 
         [HttpPost, ActionName("Admin")]
-//        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Admin(SearchCtx ctx)
         {
             Garage garage = new Garage("default", 50);
