@@ -3,33 +3,18 @@
 @{
     ViewBag.Title = "Mitt Garage";
 }
-
-<h2>
-    @Html.ActionLink("Mitt Garage", "Index")</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<div>
-    <form method="get">
-
-        <input type="search" name="term" />
-        <input type="submit" value="Hitta" />
-
-    </form>
-
-</div>
-
-<table>
+<table class="lists">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RegNr)
+            <div>Regnummer</div>
+            
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Owner)
+            <div>Ägare</div>
+           
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.checkInDate)
+            <div>Incheckad</div>
         </th>
         <th></th>
     </tr>
@@ -46,9 +31,7 @@
             @Html.DisplayFor(modelItem => item.checkInDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Detail", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Checka ut", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

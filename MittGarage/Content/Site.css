@@ -528,17 +528,17 @@ input[type="checkbox"].input-validation-error {
 /* tables
 ----------------------------------------------------------*/
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
     margin-top: 0.75em;
     border: 0 none;
-}
+    border-collapse:separate;
+    border-spacing: 10px;}
 
 th {
     font-size: 1.2em;
     text-align: left;
     border: none 0px;
-    padding-left: 0;
+    padding-left: 0px;
+
 }
 
     th a {
@@ -667,6 +667,13 @@ tr.pager td {
 
     .featured .content-wrapper {
         padding: 10px;
+    }
+   
+    .lists {
+        padding: 20px;
+        padding-left: 20px;
+        border-collapse: separate;
+        border-spacing: 10px;
     }
 
     /* page content */
