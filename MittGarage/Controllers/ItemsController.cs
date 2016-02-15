@@ -20,6 +20,7 @@ namespace MittGarage.Controllers
         {
             return View();
         }
+
         public ActionResult Index(string term = null)
         {
             if (term != null)
@@ -42,27 +43,26 @@ namespace MittGarage.Controllers
             return View(db.Item.ToList());
         }
 
+        public ActionResult CheckOut()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult CheckOut(string term = null)
         {
-            if (term != null
-                )
-            {
-                var model = db.Item.OrderBy(r => r.RegNr).Where
-                (r =>
-                    r.RegNr.Equals(term) ||
-                    r.Owner.Equals(term)
-                    )
+            if (term == null) return RedirectToAction("NotFound");
+            
+            var model = db.Item                        
+                            .Where (r => r.RegNr == term || r.Owner == term)
+                            .OrderBy(r => r.RegNr)
+                            .ToList();
+            //if (Request.IsAjaxRequest())
+            //{
+            //    return PartialView("_centrallagret", model);
+            //}
 
-                    .ToList();
-
-                if (Request.IsAjaxRequest())
-                {
-                    return PartialView("_centrallagret", model);
-                }
-
-                return View(model);
-            }
-            return View(db.Item.ToList());
+            return View(model);
         }
 
         #endregion Items
@@ -83,7 +83,6 @@ namespace MittGarage.Controllers
             if (vehicles.Count == 0) return RedirectToAction("NotFound");
             return View(vehicles);
         }
-
 
         // GET: /Items/Details/5
 

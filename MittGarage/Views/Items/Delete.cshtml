@@ -1,7 +1,7 @@
 ﻿@model MittGarage.Models.Vehicle
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Checka ut";
 }
 
 <h2>Checka ut</h2>
@@ -22,7 +22,7 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>
-        <input type="submit" value="Delete" /> |
+        <input type="submit" value="Checka ut" /> |
         @Html.ActionLink("Tillbaka till huvudmenyn", "Main")
     </p>
 }
