@@ -25,7 +25,20 @@ namespace MittGarage.Models
     #region VehicleType Enum
     public enum VehicleType
     {
-        car, bike, airplane, oljetanker, bus, mc, none
+        [Display(Name = "Bil")]
+        car,
+        [Display(Name = "Cykel")]
+        bike,
+        [Display(Name = "Flygplan")]
+        airplane,
+        [Display(Name = "Oljetanker")]
+        oljetanker,
+        [Display(Name = "Buss")]
+        bus, 
+        [Display(Name="Motorcykel")]
+        mc,
+        [Display(Name = "Godtycklig")]
+        none
     }
     #endregion VehicleType Enum
 

@@ -13,7 +13,7 @@
     <table>
         <tr>
             <td>
-                Registreringsnummer/ägare
+                @Html.LabelFor(model => model.Searchstring)
             </td>
             <td>
                 @Html.EditorFor(model => model.Searchstring)
@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <td>
-                Fordonstyp
+                @Html.LabelFor(model => model.Type)
             </td>
             <td>
                 @Html.EnumDropDownListFor(model => model.Type)
@@ -30,7 +30,7 @@
         </tr>
         <tr>
             <td>
-                Enbart dagens bilar
+                @Html.LabelFor(model => model.OnlyToday)
             </td>
             <td>
                 @Html.CheckBoxFor(model => model.OnlyToday)
