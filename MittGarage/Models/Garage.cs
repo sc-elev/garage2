@@ -114,12 +114,12 @@ namespace MittGarage.Models
         #endregion Reg Query
 
         #region CountByType Query
-        public IDictionary<VehicleType, int> CountByType()
-        {
-            return vehicles
-                        .GroupBy(v => v.Type)
-                        .ToDictionary(g => g.Key, g => g.Count());
-        }
+        //public IDictionary<VehicleType, int> CountByType()
+        //{
+        //    return vehicles
+        //                .GroupBy(v => v.VTID)
+        //                .ToDictionary(g => g.Key, g => g.Count());
+        //}
         #endregion ´CountByType Query
 
         #region Search Query Summery
@@ -142,29 +142,91 @@ namespace MittGarage.Models
         #endregion Search Query Summary
 
         #region Specific Search Queries
-        public Vehicle[] Search(string owner = null,
-                                string regNr = null,
-                                VehicleType type = VehicleType.none,
-                                ColorType color = ColorType.none)
+        public Vehicle[] Search()
+        //public Vehicle[] Search(string owner = null,
+        //                        string regNr = null,
+        //                        VehicleType type = VehicleType.none,
+        //                        ColorType color = ColorType.none)
         {
-            return vehicles
-                      .Where(v => owner == null || v.Owner == owner)
-                      .Where(v => regNr == null || v.RegNr == regNr)
-                      .Where(v => type == VehicleType.none || v.Type == type)
-                      .Where(v => color == ColorType.none || v.Color == color)
-                      .OrderBy (v => v.checkInDate)
-                      .ToArray();
+
+
+            var Found = db.Item.
+                GroupJoin(db.Owner,
+                            v => v.OwnerID,
+                            o => o.OwnerID,
+                            (v, o) => new { v, o })
+                //Counts-as LEFT JOIN
+                .SelectMany(v => v.o.DefaultIfEmpty(),
+                            (v, o) => new { v.v, o })
+                //Joins Vehicle & VehicleType on VTID
+                .GroupJoin(db.Types,
+                            vo => vo.v.VTID,
+                            t => t.VTID,
+                            (vo, t) => new { vo, t })
+                //Counts-as LEFT JOIN
+                .SelectMany(vot => vot.t.DefaultIfEmpty(), 
+                                   (vot, t) => new  {RegNr = vot.vo.v.RegNr, 
+                                                    Name = vot.vo.o.Name, 
+                                                    VType = t.VType, 
+                                                    checkInDate = vot.vo.v.checkInDate,
+                                                    Wheels = vot.vo.v.Wheels, 
+                                                    Brand = vot.vo.v.Brand,
+                                                    Color = vot.vo.v.Color});
+            return Found;
+
+            //var Found = db.Item.
+            //    GroupJoin(db.Owner,
+            //                v => v.OwnerID,
+            //                o => o.OwnerID,
+            //                (v, o) => new { v, o })
+            //    //Counts-as LEFT JOIN
+            //    .SelectMany(v => v.o.DefaultIfEmpty(),
+            //                (v, o) => new { v.v, o })
+            //    //Joins Vehicle & VehicleType on VTID
+            //    .GroupJoin(db.Types,
+            //                vo => vo.v.VTID,
+            //                t => t.VTID,
+            //                (vo, t) => new { vo, t })
+            //    //Counts-as LEFT JOIN
+            //    .SelectMany(vot => vot.t.DefaultIfEmpty()
+            //    .Where(p=>p.)
+            //    .ToList());
+
         }
 
         public Vehicle[] Search(SearchCtx ctx)
         {
-            return vehicles
-                .Where(v => ctx.Type == VehicleType.none || ctx.Type == v.Type)
-                .Where(v => !ctx.OnlyToday 
-                            || DateTime.Now.Day == v.checkInDate.Day)
-                .Where(v => ctx.Searchstring == v.RegNr 
-                            || ctx.Searchstring == v.Owner)
-                .ToArray();  
+            //Joins Vehicle & Owner on OwnerID
+            var Found = db.Item.
+                GroupJoin(db.Owner,v => v.OwnerID,
+                                   o => o.OwnerID,
+                                   (v, o) => new { v, o })
+                //Counts-as LEFT JOIN
+                .SelectMany(v => v.o.DefaultIfEmpty(),
+                           (v, o) => new { v.v, o })
+                //Joins Vehicle & VehicleType on VTID
+                .GroupJoin(db.Types,
+                          vo => vo.v.VTID,
+                          t => t.VTID,
+                          (vo, t) => new { vo, t })
+                //Counts-as LEFT JOIN
+                .SelectMany(vot => vot.t.DefaultIfEmpty(), 
+                                   (vot, t) => new{regNr = vot.vo.v.RegNr,
+                                                   Owner = vot.vo.o.Name,
+                                                   Vehicle = t.VType,
+                                                   InDate = vot.vo.v.checkInDate,
+                                                   WheelCount = vot.vo.v.Wheels,
+                                                   VehicleBrand = vot.vo.v.Brand});
+            return Found;
+
+            //--Old Stuff--
+            //return vehicles
+            //    .Where(v => ctx.Type == VehicleType.none || ctx.Type == v.Type)
+            //    .Where(v => !ctx.OnlyToday 
+            //                || DateTime.Now.Day == v.checkInDate.Day)
+            //    .Where(v => ctx.Searchstring == v.RegNr 
+            //                || ctx.Searchstring == v.Owner)
+            //    .ToArray();  
         }
 
         #endregion Specific Search Queries

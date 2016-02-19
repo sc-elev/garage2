@@ -4,31 +4,13 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections;
+using MittGarage.DataAccessLayer;
 
 
 namespace MittGarage.Models
 {
-    #region Color Enum
-    public enum ColorType
-    {
-        black,
-        white,
-        red,
-        green,
-        yellow,
-        blue,
-        cyan,
-        none
-    };
-    #endregion Color Enum
-
-    #region VehicleType Enum
-    public enum VehicleType
-    {
-        car, bike, airplane, oljetanker, bus, mc, none
-    }
-    #endregion VehicleType Enum
-
+    
     #region VehicleFactory Class
     public class VehicleFactory
     {
@@ -68,43 +50,33 @@ namespace MittGarage.Models
     /// The base of all items in the garage.
     /// </summary>
     [Serializable()]
-    abstract public class Vehicle
+    public class Vehicle
     {
         protected static int LastId = 0;
-
-        protected ColorType ParseColor(string s)
-        {
-            try
-            {
-                return (ColorType)Enum.Parse(typeof(ColorType), s.ToLower());
-            }
-            catch (ArgumentException)
-            {
-                throw new ArgumentException("Illegal color: " + s);
-            }
-
-        }
 
         #region --All Attributes--
 
         #region Mandatory Attributes without Defaults
         // Mandatory attributes without defaults.
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; private set; }
-   
-        
-        public string Owner { get; private set; }
 
-       
-        public VehicleType Type { get; set; }
+        [Required]
+        [ForeignKey("OwnerID")]
+        public int OwnerID { get; set; }
+               
+        [Required]
+        [ForeignKey("VTID")]
+        public int VTID {get; set;}
 
         public DateTime checkInDate { get; protected set; }
         #endregion Mandatory Attributes without Defaults
 
         #region Searchable Optional Attributes
         // Searchable, optional attributes.
-        public ColorType Color { get; protected set; }
+        public string Color { get; protected set; }
 
         public int Wheels { get; protected set; }
 
@@ -145,29 +117,59 @@ namespace MittGarage.Models
             {
                 this.Brand = attr[1];
             }
-            if (attr.Count > 2)
-            {
-                Color = ParseColor(attr[2]);
-            }
             return this;
         }
         #endregion Parse and Store Commandline Attributes
 
         #region Vehicle Constructor
 
-        public Vehicle(string owner, VehicleType type, Object now = null)
+        private int GetName (string name)
         {
-            if (owner == null)
-                throw new ArgumentNullException();
-            LastId += 1;
-            Owner = owner;
-            this.Type = type;
-            Id = LastId;
-            Color = ColorType.none;
-            RegNr = null;
-            Wheels = -1;
-            checkInDate = now == null ? DateTime.Now : (DateTime)now;
+            var db = new ItemContext();
+            IList Found = db.Owner.Where(g => g.Name == name).ToList();
+            if (Found.Count == 0)
+            {
+                db.Owner.Add(new Owner(name));
+                db.SaveChanges();
+            }
+
+            Owner o = db.Owner.Where(ow => ow.Name == name).First();
+            return o.OwnerID;
         }
+
+        private int GetType(string type)
+        {
+            var db = new ItemContext();
+            IList found = db.Types.Where(t => t.VType == type).ToList();
+            if (found.Count == 0)
+            {
+                db.Types.Add(new VehicleType(type));
+                db.SaveChanges();
+            }
+
+            VehicleType vt = db.Types.Where(ty => ty.VType == type).First();
+            return vt.VTID;
+        }
+
+        //public Vehicle( string owner , string type, Object now = null)
+        //{
+        //    if (owner == null || type == null)
+        //        throw new ArgumentNullException();
+        //    LastId += 1;
+        //    OwnerID = GetName(owner);
+        //    VTID = GetType(type);
+        //    Id = LastId;
+        //    Color = ColorType.none;
+        //    RegNr = null;
+        //    Wheels = -1;
+        //    checkInDate = now == null ? DateTime.Now : (DateTime)now;
+        //}
+
+        public Vehicle( string regNr, string Name, Object now, int Wheels, string Brand. string Color) 
+        {
+            this.RegNr = regNr
+        }
+
 
         #endregion Vehicle Constructor
 
@@ -185,7 +187,7 @@ namespace MittGarage.Models
         {
             return String.Format(
                 "Bus, RegNr: {0}, Owner:{1}, id: {2}, wheels:  {3} ",
-                RegNr, Owner, Id, Wheels);
+                RegNr, OwnerID, Id, Wheels);
         }
 
         public BusVehicle(string owner) : base(owner, VehicleType.bus) { }
@@ -204,7 +206,7 @@ namespace MittGarage.Models
         {
             return String.Format(
                 "Plane, RegNr: {0}, Owner:{1}, id: {2}, wheels: {3} ",
-                RegNr, Owner, Id, Wheels);
+                RegNr, OwnerID, Id, Wheels);
         }
 
         public override Vehicle Init(List<string> attr)
@@ -227,14 +229,10 @@ namespace MittGarage.Models
             //{
             //    Type = +attr[2];
             //}
-            if (attr.Count > 3)
-            {
-                Color = ParseColor(attr[3]);
-            }
             return this;
         }
 
-        public PlaneVehicle(string owner) : base(owner, VehicleType.airplane) { }
+        public PlaneVehicle(string ownerID) : base(ownerID, VehicleType.airplane) { }
 
         public PlaneVehicle(): this("Unknown") {}
     }
@@ -248,10 +246,10 @@ namespace MittGarage.Models
         public override string ToString()
         {
             return String.Format(
-                "Motorcycle, RegNr: {0}, Owner:{1}, id: {2}", RegNr, Owner, Id);
+                "Motorcycle, RegNr: {0}, Owner:{1}, id: {2}", RegNr, ownerID, Id);
         }
 
-        public McVehicle(string owner) : base(owner, VehicleType.mc) { }
+        public McVehicle(string ownerID) : base(ownerID, VehicleType.mc) { }
 
         public McVehicle() : this("Unknown") { }
 
@@ -265,7 +263,7 @@ namespace MittGarage.Models
         public override string ToString()
         {
             return String.Format(
-                "Boat, brand: {0}, Owner:{1}, id: {2}", Brand, Owner, Id);
+                "Boat, brand: {0}, Owner:{1}, id: {2}", Brand, ownerID, Id);
         }
 
         public override Vehicle Init(List<string> attr)
@@ -278,7 +276,7 @@ namespace MittGarage.Models
             return this;
         }
 
-        public BoatVehicle(string owner) : base(owner, VehicleType.oljetanker) { }
+        public BoatVehicle(string ownerID) : base(ownerID, VehicleType.oljetanker) { }
 
         public BoatVehicle() : this("Unknown") {}
 
@@ -293,10 +291,10 @@ namespace MittGarage.Models
         {
             return String.Format(
                 "Car, nr: {0}, Owner:{1}, id: {2}, color: {3}",
-                RegNr, Owner, Id, Color);
+                RegNr, OwnerID, Id, Color);
         }
 
-        public CarVehicle(string owner) : base(owner, VehicleType.car) { }
+        public CarVehicle(string ownerID) : base(ownerID, VehicleType.car) { }
 
         public CarVehicle() : this ("Unknown") {}
     }

@@ -195,9 +195,11 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Garage.cs" />
+    <Compile Include="Models\Owner.cs" />
     <Compile Include="Models\SearchCtx.cs" />
     <Compile Include="Models\VehicleCtx.cs" />
     <Compile Include="Models\Vehicle.cs" />
+    <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

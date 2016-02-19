@@ -22,62 +22,72 @@ using System.Linq;
         {
             var car =  new CarVehicle("Teo");
             car.RegNr = createNummerplat();
-            car.Type = VehicleType.car;
-            context.Item.AddOrUpdate(r => r.Id, car);
+            db.Types.AddOrUpdate(t => t.VTID);
+            db.Item.AddOrUpdate(r => r.Id);
+            db.Owner.AddOrUpdate(o => o.OwnerID);
             context.SaveChanges();
 
             car = new CarVehicle("Kalle");
             car.RegNr = createNummerplat();
-            car.Type = VehicleType.car;
-            context.Item.AddOrUpdate(r => r.Id, car);
+            db.Types.AddOrUpdate(t => t.VTID);
+            db.Item.AddOrUpdate(r => r.Id);
+            db.Owner.AddOrUpdate(o => o.OwnerID);
             context.SaveChanges();
 
             var boat = new BoatVehicle("kapten SVartskägg");
             boat.RegNr = createNummerplat();
-            boat.Type = VehicleType.oljetanker;
-            context.Item.AddOrUpdate(r => r.Id, boat);
+            db.Types.AddOrUpdate(t => t.VTID);
+            db.Item.AddOrUpdate(r => r.Id);
+            db.Owner.AddOrUpdate(o => o.OwnerID);
             context.SaveChanges();
 
             boat = new BoatVehicle("kapten SVartskägg");
             boat.RegNr = createNummerplat();
-            boat.Type = VehicleType.airplane;
-            context.Item.AddOrUpdate(r => r.Id, boat);
+            db.Types.AddOrUpdate(t => t.VTID);
+            db.Item.AddOrUpdate(r => r.Id);
+            db.Owner.AddOrUpdate(o => o.OwnerID);
             context.SaveChanges();
 
             boat = new BoatVehicle("Röde Baron");
             boat.RegNr = createNummerplat();
-            boat.Type = VehicleType.airplane;
-            context.Item.AddOrUpdate(r => r.Id, boat);
+            db.Types.AddOrUpdate(t => t.VTID);
+            db.Item.AddOrUpdate(r => r.Id);
+            db.Owner.AddOrUpdate(o => o.OwnerID);
             context.SaveChanges();
 
             boat = new BoatVehicle("knutten Knut");
             boat.RegNr = createNummerplat();
-            boat.Type = VehicleType.mc;
-            context.Item.AddOrUpdate(r => r.Id, boat);
+            db.Types.AddOrUpdate(t => t.VTID);
+            db.Item.AddOrUpdate(r => r.Id);
+            db.Owner.AddOrUpdate(o => o.OwnerID);
             context.SaveChanges();
 
             boat = new BoatVehicle("Arne");
             boat.RegNr = createNummerplat();
-            boat.Type = VehicleType.bus;
-            context.Item.AddOrUpdate(r => r.Id, boat);
+            db.Types.AddOrUpdate(t => t.VTID);
+            db.Item.AddOrUpdate(r => r.Id);
+            db.Owner.AddOrUpdate(o => o.OwnerID);
             context.SaveChanges();
 
-            boat = new BoatVehicle("Prinsessan Madde");
+            boat = new BoatVehicle("General Error");
             boat.RegNr = createNummerplat();
-            boat.Type = VehicleType.oljetanker;
-            context.Item.AddOrUpdate(r => r.Id, boat);
+            db.Types.AddOrUpdate(t => t.VTID);
+            db.Item.AddOrUpdate(r => r.Id);
+            db.Owner.AddOrUpdate(o => o.OwnerID);
             context.SaveChanges();
 
-            boat = new BoatVehicle("Major MAjor Major Major");
+            boat = new BoatVehicle("Major Malfunction");
             boat.RegNr = createNummerplat();
-            boat.Type = VehicleType.mc;
-            context.Item.AddOrUpdate(r => r.Id, boat);
+            db.Types.AddOrUpdate(t => t.VTID);
+            db.Item.AddOrUpdate(r => r.Id);
+            db.Owner.AddOrUpdate(o => o.OwnerID);
             context.SaveChanges();
 
             boat = new BoatVehicle("Bo Ek");
             boat.RegNr = createNummerplat();
-            boat.Type = VehicleType.car;
-            context.Item.AddOrUpdate(r => r.Id, boat);
+            db.Types.AddOrUpdate(t => t.VTID);
+            db.Item.AddOrUpdate(r => r.Id);
+            db.Owner.AddOrUpdate(o => o.OwnerID);
             context.SaveChanges();
         }
         #endregion Seed

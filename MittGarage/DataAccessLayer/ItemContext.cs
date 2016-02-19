@@ -10,5 +10,7 @@ namespace MittGarage.DataAccessLayer
     {
         public ItemContext() : base("DefaultConnection") { }
         public DbSet<Models.Vehicle> Item { get; set; }
+        public DbSet<Models.Owner> Owner { get; set; }
+        public DbSet<Models.VehicleType> Types { get; set; }
     }
 }

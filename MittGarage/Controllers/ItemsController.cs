@@ -53,20 +53,21 @@ namespace MittGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckOut(string term = null)
         {
-            if (term == null) return RedirectToAction("NotFound");
+            //if (term == null) return RedirectToAction("NotFound");
             
-            var model = db.Item                        
-                            .Where (r => r.RegNr == term 
-                                         || r.Owner == term
-                                         || r.Id.ToString() == term)
-                            .OrderBy(r => r.RegNr)
-                            .ToList();
+            //var model = db.Item                        
+            //                .Where (r => r.RegNr == term 
+            //                             || r.Owner == term
+            //                             || r.Id.ToString() == term)
+            //                .OrderBy(r => r.RegNr)
+            //                .ToList();
             //if (Request.IsAjaxRequest())
             //{
             //    return PartialView("_centrallagret", model);
             //}
 
-            return View(model);
+            //return View(model);
+            return View();
         }
 
         #endregion Items
