@@ -100,6 +100,33 @@ namespace MittGarage.Controllers
             }
             return View(vehicle);
         }
+        public ActionResult DropDownList(VehicleCtx context)
+        {
+            List<SelectListItem> VtypeList = new List<SelectListItem>();
+
+            List <string> destinct = new List<string>();
+            destinct = garage.FindDestinct();
+            //destinct.Add(garage.FindDestinct);
+            int Databasesize = garage.FindSize();
+            for (int valueint = 0; valueint < Databasesize; valueint++)
+            {
+                VtypeList.Add(new SelectListItem
+                                                {
+                                                Text = destinct.ElementAt(valueint),
+                                                Value = valueint.ToString()
+                                                }
+                            );
+
+
+                //return View(VtypeList);
+            }
+            return View(VtypeList);
+        }
+        public ViewResult _Dropdown()
+        {
+            return View("DropdownView");
+        }
+
         #endregion Items/Details/5
 
         #region --Items/Create--

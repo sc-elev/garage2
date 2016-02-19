@@ -32,13 +32,13 @@ using System.Linq;
             context.Item.AddOrUpdate(r => r.Id, car);
             context.SaveChanges();
 
-            var boat = new BoatVehicle("kapten SVartskägg");
+            var boat = new BoatVehicle("kapten Svartskägg");
             boat.RegNr = createNummerplat();
             boat.Type = VehicleType.oljetanker;
             context.Item.AddOrUpdate(r => r.Id, boat);
             context.SaveChanges();
 
-            boat = new BoatVehicle("kapten SVartskägg");
+            boat = new BoatVehicle("kapten Svartskägg");
             boat.RegNr = createNummerplat();
             boat.Type = VehicleType.airplane;
             context.Item.AddOrUpdate(r => r.Id, boat);
@@ -68,7 +68,7 @@ using System.Linq;
             context.Item.AddOrUpdate(r => r.Id, boat);
             context.SaveChanges();
 
-            boat = new BoatVehicle("Major MAjor Major Major");
+            boat = new BoatVehicle("Major Major Major Major");
             boat.RegNr = createNummerplat();
             boat.Type = VehicleType.mc;
             context.Item.AddOrUpdate(r => r.Id, boat);

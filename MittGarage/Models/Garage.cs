@@ -49,6 +49,30 @@ namespace MittGarage.Models
 
         #region --Queries--
 
+        #region Find Destinct
+
+        public List<string> FindDestinct()
+        {
+           List<string> destinctlist = new List<string>();
+
+            var SelectedOwner = vehicles.Select(x => x.Owner).OrderBy(x => x).ToList();
+            foreach (var a in SelectedOwner)
+            {
+                destinctlist.Add(a);
+            }
+            return destinctlist;
+        }
+
+        #endregion Find Destinct
+
+        #region Find Size
+        public int FindSize()
+        {
+            return vehicles.Count;
+            
+        }
+        #endregion Find Size
+
         #region Add Vehicle
         public void Add(Vehicle vehicle)
         {
@@ -180,5 +204,17 @@ namespace MittGarage.Models
             this.Capacity = capacity;
         }
         #endregion
+        //public IEnumerator<Vehicle> GetEnumerator()
+        //{
+        //    foreach (T index in Vehicle)
+        //    {
+        //        yield return index;
+        //    }
+        //}
+
+        //System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
