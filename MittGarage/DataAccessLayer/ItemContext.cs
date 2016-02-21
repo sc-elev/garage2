@@ -7,12 +7,11 @@ using MittGarage.Models;
 
 namespace MittGarage.DataAccessLayer
 {
-    public class ItemContext : DbContext
+    public class GarageDbContext : DbContext
     {
-        public ItemContext() : base("DefaultConnection") { }
-        public DbSet<Vehicle> Item { get; set; }
-        public DbSet<Owner> Owner { get; set; }
-        public DbSet<
-            VehicleType> Types { get; set; }
+        public GarageDbContext() : base("DefaultConnection") { }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Owner> Owners { get; set; }
+        public DbSet<VehicleType> Types { get; set; }
     }
 }

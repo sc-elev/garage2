@@ -9,7 +9,7 @@ namespace MittGarage.Migrations
     using System.Linq;
     using System.Text;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MittGarage.DataAccessLayer.ItemContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MittGarage.DataAccessLayer.GarageDbContext>
     {
         static Random _rnd = new Random();
 
@@ -47,37 +47,37 @@ namespace MittGarage.Migrations
             }
         }
 
-        protected override void Seed(MittGarage.DataAccessLayer.ItemContext context)
+        protected override void Seed(MittGarage.DataAccessLayer.GarageDbContext context)
         {
-            using (var db = new ItemContext())
+            using (var db = new GarageDbContext())
             {
                 Owner owner;
                 owner = new Owner { OwnerID = 0, Name = "Adam Trädgårdh"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 1, Name = "Orvar Persson"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 2, Name = "Per Orvarsson"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 3, Name = "Hugo Svensson"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 4, Name = "Sven Hugosson"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 5, Name = "Glada draken"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 6, Name = "Sura draken"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 7, Name = "Någon Okänd"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 8, Name = "Bror Ivarsson"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 9, Name = "Ivar Brorsson"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 10, Name = "Ivar Brorsson"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 11, Name = "Eva Trädgårdh"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
                 owner = new Owner { OwnerID = 12, Name = "Hans Brädgård"};
-                db.Owner.AddOrUpdate(o => o.OwnerID, owner);
+                db.Owners.AddOrUpdate(o => o.OwnerID, owner);
 
                 VehicleType type;
                 type = new VehicleType { VTID = 1, VType = "car"};
@@ -97,14 +97,14 @@ namespace MittGarage.Migrations
                     RegNr = Configuration.createNummerplat(),
                 };
 
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
                 car = new Vehicle
                 {
                     OwnerID = 2,
                     VTID = 1,
                     RegNr = Configuration.createNummerplat(),
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
@@ -112,14 +112,14 @@ namespace MittGarage.Migrations
                     VTID = 3,
                     Brand = "Shark-24"
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
                     OwnerID = 4,
                     VTID = 3
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
@@ -127,7 +127,7 @@ namespace MittGarage.Migrations
                     VTID = 3,
                     Brand = "Yamaha"
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
@@ -135,7 +135,7 @@ namespace MittGarage.Migrations
                     VTID = 2,
                     RegNr = Configuration.createNummerplat(),
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
@@ -143,21 +143,21 @@ namespace MittGarage.Migrations
                     VTID = 3,
                     Brand = "Tailwind-33"
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
                     OwnerID = 7,
                     VTID = 4,
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
                     OwnerID = 8,
                     VTID = 5,
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
@@ -166,7 +166,7 @@ namespace MittGarage.Migrations
                     RegNr = Configuration.createNummerplat(),
                     Brand = "Saab"
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
@@ -175,7 +175,7 @@ namespace MittGarage.Migrations
                     RegNr = Configuration.createNummerplat(),
                     Brand = "Volvo",
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
@@ -184,7 +184,7 @@ namespace MittGarage.Migrations
                     RegNr = Configuration.createNummerplat(),
                     Brand = "Subaru",
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
@@ -193,7 +193,7 @@ namespace MittGarage.Migrations
                     RegNr = Configuration.createNummerplat(),
                     Brand = "Datsun",
                 };
-                db.Item.AddOrUpdate(r => r.Id, car);
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 SaveChanges(db);
             }

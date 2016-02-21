@@ -13,7 +13,7 @@ namespace MittGarage.Controllers
 {
     public class ItemsController : BaseController
     {
-        private ItemContext db = new ItemContext();
+        private GarageDbContext db = new GarageDbContext();
 
         #region Items
         // GET: /Items/
@@ -27,7 +27,7 @@ namespace MittGarage.Controllers
         {
             if (term != null)
             {
-                var model = db.Item.OrderBy(r => r.RegNr)
+                var model = db.Vehicles.OrderBy(r => r.RegNr)
                     .Where(r => r.RegNr == term || r.OwnerName == term)
                     .ToList();
                 if (Request.IsAjaxRequest())
@@ -37,7 +37,7 @@ namespace MittGarage.Controllers
 
                 return View(model);
             }
-            return View(db.Item.ToList());
+            return View(db.Vehicles.ToList());
         }
 
         public ActionResult CheckOut()
@@ -51,7 +51,7 @@ namespace MittGarage.Controllers
         {
             if (term == null) return RedirectToAction("NotFound");
 
-            var model = db.Item
+            var model = db.Vehicles
                             .Where (r => r.RegNr == term
                                          || r.OwnerName == term
                                          || r.Id.ToString() == term)
@@ -84,7 +84,7 @@ namespace MittGarage.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Vehicle vehicle = db.Item.Find(id);
+            Vehicle vehicle = db.Vehicles.Find(id);
             if (vehicle == null)
             {
                 return RedirectToAction("NotFound");
@@ -113,7 +113,7 @@ namespace MittGarage.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Item.Add(vehicle);
+                db.Vehicles.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Main");
             }
@@ -131,7 +131,7 @@ namespace MittGarage.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Vehicle vehicle = db.Item.Find(id);
+            Vehicle vehicle = db.Vehicles.Find(id);
             if (vehicle == null) return RedirectToAction("NotFound");
             TempData["vehicles"] = new List<Vehicle> { vehicle };
             return RedirectToAction("List");
@@ -169,7 +169,7 @@ namespace MittGarage.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Vehicle vehicle = db.Item.Find(id);
+            Vehicle vehicle = db.Vehicles.Find(id);
             if (vehicle == null)
             {
                 return RedirectToAction("NotFound");
@@ -259,8 +259,8 @@ namespace MittGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Vehicle vehicle = db.Item.Find(id);
-            db.Item.Remove(vehicle);
+            Vehicle vehicle = db.Vehicles.Find(id);
+            db.Vehicles.Remove(vehicle);
             db.SaveChanges();
             return RedirectToAction("Main");
         }

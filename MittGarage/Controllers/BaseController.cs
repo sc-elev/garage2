@@ -9,10 +9,10 @@ using System.Configuration;
 
 namespace MittGarage.Controllers
 {
-    
+
     public class BaseController : Controller
     {
-        private ItemContext db = new ItemContext();
+        private GarageDbContext db = new GarageDbContext();
 
         public Garage garage
         {
@@ -22,7 +22,7 @@ namespace MittGarage.Controllers
                 if (TempData["garage"] == null)
                 {
                     string GarageId = ConfigurationManager.AppSettings["GarageId"].ToString();
-                    uint capacity = 
+                    uint capacity =
                         (uint)int.Parse(ConfigurationManager.AppSettings["GarageCapacity"].ToString());
                     TempData["garage"] = new  Garage(GarageId, capacity);
                 }

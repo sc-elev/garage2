@@ -17,7 +17,7 @@ namespace MittGarage.Models
     {
         protected List<Vehicle> vehicles;
 
-        private ItemContext db = new ItemContext();
+        private GarageDbContext db = new GarageDbContext();
 
         public string Id { get; private set; }
 
@@ -51,7 +51,7 @@ namespace MittGarage.Models
             if (vehicles.Count >= Capacity)
                 throw new InvalidOperationException();
             vehicles.Add(vehicle);
-            db.Item.Add(vehicle);
+            db.Vehicles.Add(vehicle);
             db.SaveChanges();
         }
 
@@ -112,8 +112,8 @@ namespace MittGarage.Models
 
         protected List<Vehicle> JoinVehicles()
         {
-            var query = db.Item
-                .GroupJoin(db.Owner,
+            var query = db.Vehicles
+                .GroupJoin(db.Owners,
                            v => v.OwnerID,
                            o => o.OwnerID,
                            (v, o) => new { v, o })
@@ -213,8 +213,8 @@ namespace MittGarage.Models
 
         public Garage(string id, uint capacity)
         {
-            db = new ItemContext();
-            vehicles = db.Item.ToList();
+            db = new GarageDbContext();
+            vehicles = db.Vehicles.ToList();
             this.Id = id;
             this.Capacity = capacity;
         }
