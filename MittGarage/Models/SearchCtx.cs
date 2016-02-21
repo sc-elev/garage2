@@ -47,7 +47,7 @@ namespace MittGarage.Models
                     Results = Results.OrderByDescending(s => s.Id).ToList();
                     break;
                 case "owner":
-                    Results = Results.OrderBy(s => s.Owner).ToList();
+                    Results = Results.OrderBy(s => s.OwnerName).ToList();
                     break;
                 case "regnr":
                     Results = Results.OrderBy(s => s.RegNr).ToList();

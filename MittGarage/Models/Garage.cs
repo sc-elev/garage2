@@ -186,7 +186,7 @@ namespace MittGarage.Models
                                 ColorType color = ColorType.none)
         {
             var Found = JoinVehicles()
-                .Where(a => owner == null || a.Owner.Name == owner)
+                .Where(a => owner == null || a.OwnerName == owner)
                 .Where(a => regNr == null || a.RegNr == regNr)
                 .Where(a => vehicleType == null
                             || a.Typename == vehicleType)

@@ -34,42 +34,15 @@ namespace MittGarage.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        protected string _typename = "?";
-        protected string _ownername;
-        protected int? _ownerID = (int?)null;
-        protected int? _VTID = (int?)null;
+        [Required]
+        public int? VTID {get; set; }
+
+        public string Typename { get; set; }
 
         [Required]
-        public int? VTID
-        {
-            get { return VehicleType == null?  _VTID : VehicleType.VTID; }
-            set { _VTID = value; }
-        }
+        public int? OwnerID {get; set; }
 
-        public string Typename
-        {
-            get { return VehicleType != null ? VehicleType.VType : _typename; }
-            set { _typename = value; }
-        }
-
-        [ForeignKey("VTID")]
-        public VehicleType VehicleType { get; set; }
-
-        [Required]
-        public int? OwnerID
-        {
-            get { return Owner == null ? _ownerID : Owner.OwnerID; }
-            set { _ownerID = value;  }
-        }
-
-        public string OwnerName
-        {
-            get { return Owner == null ? _ownername : Owner.Name; }
-            set { _ownername = value; }
-        }
-
-        [ForeignKey("OwnerID")]
-        public Owner Owner { get; set;}
+        public string OwnerName { get; set; }
 
         public DateTime checkInDate { get; set; }
 
@@ -104,52 +77,9 @@ namespace MittGarage.Models
         }
 
 
-        protected ColorType ParseColor(string s)
-        {
-            try
-            {
-                return (ColorType)Enum.Parse(typeof(ColorType), s.ToLower());
-            }
-            catch (ArgumentException)
-            {
-                throw new ArgumentException("Illegal color: " + s);
-            }
-        }
-
-
-        private int GetIdByType(string type)
-        {
-            var db = new ItemContext();
-            IList found = db.Types.Where(t => t.VType == type).ToList();
-            if (found.Count == 0)
-            {
-                db.Types.Add(new VehicleType{VType = type});
-                db.SaveChanges();
-            }
-
-            VehicleType vt = db.Types.Where(ty => ty.VType == type).First();
-            return vt.VTID;
-        }
-
-
-        private int GetIdByName(string name)
-        {
-            var db = new ItemContext();
-            IList found = db.Owner.Where(t => t.Name == name).ToList();
-            if (found.Count == 0)
-            {
-                //db.Owner.Add(new Owner { Name = name }); FIXME
-                db.SaveChanges();
-            }
-
-            Owner owner = db.Owner.Where(ty => ty.Name == name).First();
-            return owner.OwnerID;
-        }
-
-
         public Vehicle(string owner, DateTime? now = null)
         {
-            this.OwnerID = GetIdByName(owner);
+            this.OwnerName = owner;
             Color = ColorType.none;
             RegNr = null;
             Wheels = -1;

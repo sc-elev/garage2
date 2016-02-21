@@ -27,14 +27,9 @@ namespace MittGarage.Controllers
         {
             if (term != null)
             {
-                var model = db.Item.OrderBy(r => r.RegNr).Where
-				(r =>
-                    r.RegNr.Equals(term) ||
-					r.Owner.Equals(term)
-                    )
-
+                var model = db.Item.OrderBy(r => r.RegNr)
+                    .Where(r => r.RegNr == term || r.OwnerName == term)
                     .ToList();
-
                 if (Request.IsAjaxRequest())
                 {
                     return PartialView("_centrallagret", model);
