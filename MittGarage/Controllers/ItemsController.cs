@@ -207,10 +207,7 @@ namespace MittGarage.Controllers
             {
                 if (ctx.IsPristine())
                 {
-                    ctx.Results = garage.Search(null,
-                                                null,
-                                                null,
-                                                ColorType.none).ToList();
+                    ctx.Results = garage.Search(new SearchCtx()).ToList();
                 }
                 else
                 {

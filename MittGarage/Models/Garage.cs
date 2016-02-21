@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using MittGarage.DataAccessLayer;
+using Minimatch;
 
 namespace MittGarage.Models
 {
@@ -164,50 +165,31 @@ namespace MittGarage.Models
         }
 
 
-        /// <summary>
-        /// Search for vehicles matching given attributes, return possibly
-        /// empty array of matches.
-        /// </summary>
-        /// <param name='owner'>
-        /// Optional: owner to match, or null for don't care.
-        /// </param>
-        /// <param name='regNr'>
-        /// Optional: registration nr to match, or null for don't care.
-        /// </param>
-        /// <param name='type'>
-        /// Optional: vehicle type or null for don't care.
-        /// </param>
-        /// <param name='color'>
-        /// Optional: color to match, or Color.None for any color.
-        /// </param>
-        public Vehicle[] Search(string owner = null,
-                                string regNr = null,
-                                string vehicleType = null,
-                                ColorType color = ColorType.none)
+        private Minimatcher GetMinimatcher(SearchCtx ctx)
         {
-            var Found = JoinVehicles()
-                .Where(a => owner == null || a.OwnerName == owner)
-                .Where(a => regNr == null || a.RegNr == regNr)
-                .Where(a => vehicleType == null
-                            || a.Typename == vehicleType)
-                .Where(v => color == ColorType.none || v.Color == color)
-                .OrderBy(v => v.checkInDate);
-            return Found.ToArray();
+            if (string.IsNullOrEmpty(ctx.Searchstring)) return null;
+
+            if (!(ctx.Searchstring.Contains('*')
+                || ctx.Searchstring.Contains('?')))
+            {
+                ctx.Searchstring = "*" + ctx.Searchstring + "*";
+            }
+            return new Minimatcher(ctx.Searchstring);
         }
 
 
         public Vehicle[] Search(SearchCtx ctx)
         {
-            //Joins Vehicle & Owner on OwnerID
+            Minimatcher mm = GetMinimatcher(ctx);
             var found = JoinVehicles()
                 .Where(a => string.IsNullOrEmpty(ctx.Typestring)
                             || a.Typename == ctx.Typestring)
                 .Where(a => !ctx.OnlyToday
                             || DateTime.Now.Day == a.checkInDate.Day)
-                .Where(a => string.IsNullOrEmpty(ctx.Searchstring)
-                            || ctx.Searchstring == a.RegNr
-                            || ctx.Searchstring == a.OwnerName);
-            return found.ToArray();
+                .Where(a => mm == null
+                            || (a.RegNr != null && mm.IsMatch(a.RegNr))
+                            || (a.OwnerName != null && mm.IsMatch(a.OwnerName)));
+            return found.ToArray ();
         }
 
 
