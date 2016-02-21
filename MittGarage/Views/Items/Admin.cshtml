@@ -37,7 +37,8 @@
                <input type="submit" value="Filtrera" />
             </td>
             <td>
-                <input type="submit" value="Detaljer..." onclick="return showDetails()"/>
+                <input type="submit" id="detailsButton" value="Detaljer >>>"
+                       onclick="return showDetails()"/>
             </td>
 
         </tr>
@@ -145,8 +146,15 @@
 
         var els = document.getElementsByClassName('details');
         for (var i = 0; i < els.length; ++i) {
+            if (i == 0) {
+                button = document.getElementById("detailsButton");
+                if (els[i].style.display == 'table-cell')
+                    button.value = button.value.replace("<<<", ">>>");
+                else
+                    button.value = button.value.replace(">>>", "<<<");
+            }
             if (els[i].style.display == 'table-cell')
-                els[i].style.display = 'none'
+                els[i].style.display = 'none';
             else
                 els[i].style.display = 'table-cell';
         };
