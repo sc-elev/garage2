@@ -34,7 +34,7 @@ namespace MittGarage.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        protected string _typename;
+        protected string _typename = "?";
         protected string _ownername;
         protected int? _ownerID = (int?)null;
         protected int? _VTID = (int?)null;
@@ -95,6 +95,12 @@ namespace MittGarage.Models
         public override int GetHashCode()
         {
             return Id.GetHashCode();
+        }
+
+
+        public TimeSpan TimeParked()
+        {
+            return DateTime.Now - checkInDate;
         }
 
 

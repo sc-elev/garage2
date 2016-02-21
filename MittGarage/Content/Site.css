@@ -115,7 +115,7 @@ h5, h6 {
     }
 
 header .content-wrapper {
-    padding-top: 20px; 
+    padding-top: 20px;
 }
 
 footer {
@@ -577,6 +577,10 @@ th {
         content: '▼';
     }
 
+table .details {
+    display:none;
+}
+
 td {
     padding: 0.25em 2em 0.25em 0em;
     border: 0 none;
@@ -668,7 +672,7 @@ tr.pager td {
     .featured .content-wrapper {
         padding: 10px;
     }
-   
+
     .lists {
         padding: 20px;
         padding-left: 20px;

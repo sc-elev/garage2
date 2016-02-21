@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PagedList;
 
 
 namespace MittGarage.Models
@@ -12,13 +13,57 @@ namespace MittGarage.Models
     {
         [Display(Name = "Registreringsnummer/ägare")]
         public string Searchstring {set; get; }
-        
+
         [Display(Name = "Endast idag")]
         public bool OnlyToday { set; get; }
-       
-        public string Typestring { set; get; }
+
         [Display(Name = "Fordonstyp")]
-        public VehicleType Type { set; get; }
+        public string Typestring { set; get; }
+
+        public IPagedList<Vehicle> PagedResults { set; get; }
+
+        public IList<Vehicle> Results { set; get; }
+
+        public bool IsPristine()
+        {
+            return String.IsNullOrEmpty(Searchstring)
+                   && !OnlyToday
+                   && string.IsNullOrEmpty(Typestring);
+        }
+
+
+        public bool IsEmpty()
+        {
+            return string.IsNullOrEmpty(Searchstring)
+                    && !OnlyToday
+                    && string.IsNullOrEmpty(Typestring);
+        }
+
+        public void Sort(string sortKey)
+        {
+            switch (sortKey)
+            {
+                case "id":
+                    Results = Results.OrderByDescending(s => s.Id).ToList();
+                    break;
+                case "owner":
+                    Results = Results.OrderBy(s => s.Owner).ToList();
+                    break;
+                case "regnr":
+                    Results = Results.OrderBy(s => s.RegNr).ToList();
+                    break;
+                case "checkintime":
+                case "time":
+                    Results = Results.OrderBy(s => s.checkInDate).ToList();
+                    break;
+                case "type":
+                    Results = Results.OrderByDescending(s => s.Typename).ToList();
+                    break;
+                default:
+                    throw new ArgumentException("Bad sort key: " + sortKey);
+            }
+            PagedResults = Results.ToPagedList(1, 10);
+        }
 
         public SearchCtx(string search, string today, VehicleType type)
         {
@@ -30,8 +75,10 @@ namespace MittGarage.Models
                 throw new FormatException("Illegal bool string");
             }
             OnlyToday = parsedToday;
+            Results = new List<Vehicle>();
+            PagedResults = Results.ToPagedList(1, 10);
         }
 
-        public SearchCtx() {}
+        public SearchCtx() : this ("", "false", new VehicleType{ VTID = 0 }) {}
     }
 }

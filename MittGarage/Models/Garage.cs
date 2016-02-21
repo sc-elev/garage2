@@ -189,7 +189,7 @@ namespace MittGarage.Models
                 .Where(a => owner == null || a.Owner.Name == owner)
                 .Where(a => regNr == null || a.RegNr == regNr)
                 .Where(a => vehicleType == null
-                            || a.VehicleType.VType == vehicleType)
+                            || a.Typename == vehicleType)
                 .Where(v => color == ColorType.none || v.Color == color)
                 .OrderBy(v => v.checkInDate);
             return Found.ToArray();
@@ -200,11 +200,12 @@ namespace MittGarage.Models
         {
             //Joins Vehicle & Owner on OwnerID
             var found = JoinVehicles()
-                .Where(a => ctx.Typestring == null
-                            || a.VehicleType.ToString() == ctx.Typestring)
+                .Where(a => string.IsNullOrEmpty(ctx.Typestring)
+                            || a.Typename == ctx.Typestring)
                 .Where(a => !ctx.OnlyToday
                             || DateTime.Now.Day == a.checkInDate.Day)
-                .Where(a => ctx.Searchstring == a.RegNr
+                .Where(a => string.IsNullOrEmpty(ctx.Searchstring)
+                            || ctx.Searchstring == a.RegNr
                             || ctx.Searchstring == a.OwnerName);
             return found.ToArray();
         }

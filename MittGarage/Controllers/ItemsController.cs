@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using MittGarage.Models;
 using MittGarage.DataAccessLayer;
+using PagedList;
 
 namespace MittGarage.Controllers
 {
@@ -53,21 +54,15 @@ namespace MittGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckOut(string term = null)
         {
-            //if (term == null) return RedirectToAction("NotFound");
+            if (term == null) return RedirectToAction("NotFound");
 
-            //var model = db.Item
-            //                .Where (r => r.RegNr == term
-            //                             || r.Owner == term
-            //                             || r.Id.ToString() == term)
-            //                .OrderBy(r => r.RegNr)
-            //                .ToList();
-            //if (Request.IsAjaxRequest())
-            //{
-            //    return PartialView("_centrallagret", model);
-            //}
-
-            //return View(model);
-            return View();
+            var model = db.Item
+                            .Where (r => r.RegNr == term
+                                         || r.OwnerName == term
+                                         || r.Id.ToString() == term)
+                            .OrderBy(r => r.RegNr)
+                            .ToList();
+            return View(model);
         }
 
         #endregion Items
@@ -203,27 +198,57 @@ namespace MittGarage.Controllers
         public ActionResult CheckIn(VehicleCtx ctx)
         {
             var car = new Vehicle(ctx.Owner);
-            car.VehicleType = new VehicleType{ VType = "car"};
             car.RegNr = ctx.RegNr;
             garage.Add(car);
             TempData["vehicle"] = car;
             return RedirectToAction("CheckinOK");
         }
 
-
-        public ActionResult Admin()
+        private ActionResult ShowAdmin(SearchCtx ctx, int page = 1)
         {
-            return View();
+            if (ctx == null) ctx = (SearchCtx)TempData["SearchCtx"];
+            if (ctx == null) ctx = new SearchCtx();
+            if (ctx.Results.Count == 0)
+            {
+                if (ctx.IsPristine())
+                {
+                    ctx.Results = garage.Search(null,
+                                                null,
+                                                null,
+                                                ColorType.none).ToList();
+                }
+                else
+                {
+                    ctx.Results = garage.Search(ctx).ToList();
+                }
+            }
+            ctx.PagedResults = ctx.Results.ToPagedList(page, 10);
+            TempData["vehicles"] = ctx.Results;
+            TempData["SearchCtx"] = ctx;
+            return View(ctx);
+        }
+
+        public ActionResult Admin(int page = 1)
+        {
+            return ShowAdmin(null, page);
         }
 
         [HttpPost, ActionName("Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Admin(SearchCtx ctx)
+        public ActionResult Admin(SearchCtx ctx, int page = 1)
         {
-            List<Vehicle> found = garage.Search(ctx).ToList();
-            if (found.Count == 0) return RedirectToAction("NotFound");
-            TempData["vehicles"] = found;
-            return RedirectToAction("List");
+            return ShowAdmin(ctx, page);
+        }
+
+        public ActionResult Sort(string sortOrder)
+        {
+            SearchCtx  ctx = (SearchCtx)TempData["SearchCtx"];
+            if (ctx == null)
+                ctx = new SearchCtx();
+            ctx.Sort(sortOrder);
+            TempData["SearchCtx"] = ctx;
+            TempData["vehicles"] = ctx.Results;
+            return RedirectToAction("Admin", new { page = 1 });
         }
 
         public ActionResult Contact()
