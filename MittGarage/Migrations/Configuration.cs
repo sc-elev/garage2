@@ -20,75 +20,7 @@ using System.Linq;
         #region Seed
         protected override void Seed(MittGarage.DataAccessLayer.ItemContext context)
         {
-            var car =  new CarVehicle("Teo");
-            car.RegNr = createNummerplat();
-            db.Types.AddOrUpdate(t => t.VTID);
-            db.Item.AddOrUpdate(r => r.Id);
-            db.Owner.AddOrUpdate(o => o.OwnerID);
-            context.SaveChanges();
 
-            car = new CarVehicle("Kalle");
-            car.RegNr = createNummerplat();
-            db.Types.AddOrUpdate(t => t.VTID);
-            db.Item.AddOrUpdate(r => r.Id);
-            db.Owner.AddOrUpdate(o => o.OwnerID);
-            context.SaveChanges();
-
-            var boat = new BoatVehicle("kapten SVartskägg");
-            boat.RegNr = createNummerplat();
-            db.Types.AddOrUpdate(t => t.VTID);
-            db.Item.AddOrUpdate(r => r.Id);
-            db.Owner.AddOrUpdate(o => o.OwnerID);
-            context.SaveChanges();
-
-            boat = new BoatVehicle("kapten SVartskägg");
-            boat.RegNr = createNummerplat();
-            db.Types.AddOrUpdate(t => t.VTID);
-            db.Item.AddOrUpdate(r => r.Id);
-            db.Owner.AddOrUpdate(o => o.OwnerID);
-            context.SaveChanges();
-
-            boat = new BoatVehicle("Röde Baron");
-            boat.RegNr = createNummerplat();
-            db.Types.AddOrUpdate(t => t.VTID);
-            db.Item.AddOrUpdate(r => r.Id);
-            db.Owner.AddOrUpdate(o => o.OwnerID);
-            context.SaveChanges();
-
-            boat = new BoatVehicle("knutten Knut");
-            boat.RegNr = createNummerplat();
-            db.Types.AddOrUpdate(t => t.VTID);
-            db.Item.AddOrUpdate(r => r.Id);
-            db.Owner.AddOrUpdate(o => o.OwnerID);
-            context.SaveChanges();
-
-            boat = new BoatVehicle("Arne");
-            boat.RegNr = createNummerplat();
-            db.Types.AddOrUpdate(t => t.VTID);
-            db.Item.AddOrUpdate(r => r.Id);
-            db.Owner.AddOrUpdate(o => o.OwnerID);
-            context.SaveChanges();
-
-            boat = new BoatVehicle("General Error");
-            boat.RegNr = createNummerplat();
-            db.Types.AddOrUpdate(t => t.VTID);
-            db.Item.AddOrUpdate(r => r.Id);
-            db.Owner.AddOrUpdate(o => o.OwnerID);
-            context.SaveChanges();
-
-            boat = new BoatVehicle("Major Malfunction");
-            boat.RegNr = createNummerplat();
-            db.Types.AddOrUpdate(t => t.VTID);
-            db.Item.AddOrUpdate(r => r.Id);
-            db.Owner.AddOrUpdate(o => o.OwnerID);
-            context.SaveChanges();
-
-            boat = new BoatVehicle("Bo Ek");
-            boat.RegNr = createNummerplat();
-            db.Types.AddOrUpdate(t => t.VTID);
-            db.Item.AddOrUpdate(r => r.Id);
-            db.Owner.AddOrUpdate(o => o.OwnerID);
-            context.SaveChanges();
         }
         #endregion Seed
 

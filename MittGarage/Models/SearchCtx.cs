@@ -13,7 +13,7 @@ namespace MittGarage.Models
         public string Searchstring {set; get; }
         public bool OnlyToday { set; get; }
         public string Typestring { set; get; }
-        public VehicleType type { set; get; }
+        public VehicleType Type { set; get; }
 
         public SearchCtx(string search, string today, VehicleType type)
         {

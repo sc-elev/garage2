@@ -27,8 +27,8 @@ namespace MittGarage.Controllers
             if (term != null)
             {
                 var model = db.Item.OrderBy(r => r.RegNr).Where
-				(r => 
-                    r.RegNr.Equals(term) || 
+				(r =>
+                    r.RegNr.Equals(term) ||
 					r.Owner.Equals(term)
                     )
 
@@ -54,9 +54,9 @@ namespace MittGarage.Controllers
         public ActionResult CheckOut(string term = null)
         {
             //if (term == null) return RedirectToAction("NotFound");
-            
-            //var model = db.Item                        
-            //                .Where (r => r.RegNr == term 
+
+            //var model = db.Item
+            //                .Where (r => r.RegNr == term
             //                             || r.Owner == term
             //                             || r.Id.ToString() == term)
             //                .OrderBy(r => r.RegNr)
@@ -189,7 +189,7 @@ namespace MittGarage.Controllers
 
         public ActionResult CheckIn()
         {
-            return View();      
+            return View();
         }
 
         public ActionResult CheckInOK()
@@ -202,7 +202,8 @@ namespace MittGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckIn(VehicleCtx ctx)
         {
-            var car = new CarVehicle(ctx.Owner);
+            var car = new Vehicle(ctx.Owner);
+            car.VehicleType = "car";
             car.RegNr = ctx.RegNr;
             Garage garage = new Garage("default", 50);
             garage.Add(car);

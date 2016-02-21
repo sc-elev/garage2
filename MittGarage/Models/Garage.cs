@@ -124,7 +124,7 @@ namespace MittGarage.Models
 
         #region Search Query Summery
         /// <summary>
-        /// Search for vehicles matching given attributes, return possibly 
+        /// Search for vehicles matching given attributes, return possibly
         /// empty array of matches.
         /// </summary>
         /// <param name='owner'>
@@ -142,19 +142,18 @@ namespace MittGarage.Models
         #endregion Search Query Summary
 
         #region Specific Search Queries
-        public Vehicle[] Search()
-        //public Vehicle[] Search(string owner = null,
-        //                        string regNr = null,
-        //                        VehicleType type = VehicleType.none,
-        //                        ColorType color = ColorType.none)
+
+        public Vehicle[] Search(string owner = null,
+                                string regNr = null,
+                                string vehicleType = null)
         {
 
 
-            var Found = db.Item.
-                GroupJoin(db.Owner,
-                            v => v.OwnerID,
-                            o => o.OwnerID,
-                            (v, o) => new { v, o })
+            var Found = db.Item
+                .GroupJoin(db.Owner,
+                           v => v.OwnerID,
+                           o => o.OwnerID,
+                           (v, o) => new { v, o })
                 //Counts-as LEFT JOIN
                 .SelectMany(v => v.o.DefaultIfEmpty(),
                             (v, o) => new { v.v, o })
@@ -164,15 +163,20 @@ namespace MittGarage.Models
                             t => t.VTID,
                             (vo, t) => new { vo, t })
                 //Counts-as LEFT JOIN
-                .SelectMany(vot => vot.t.DefaultIfEmpty(), 
-                                   (vot, t) => new  {RegNr = vot.vo.v.RegNr, 
-                                                    Name = vot.vo.o.Name, 
-                                                    VType = t.VType, 
-                                                    checkInDate = vot.vo.v.checkInDate,
-                                                    Wheels = vot.vo.v.Wheels, 
-                                                    Brand = vot.vo.v.Brand,
-                                                    Color = vot.vo.v.Color});
-            return Found;
+                .SelectMany(vot => vot.t.DefaultIfEmpty(),
+                            (vot, t) => new Vehicle(
+                                       vot.vo.v.RegNr,
+                                       vot.vo.o.Name,
+                                       null,
+//                                       VType: t.VType,
+                                       vot.vo.v.Wheels,
+                                       vot.vo.v.Brand,
+                                       vot.vo.v.Color,
+                                       vot.vo.v.checkInDate))
+                .Where(a => owner == null || a.Owner == owner)
+                .Where(a => regNr == null || a.RegNr == regNr)
+                .Where(a => vehicleType == null || a.VehicleType == vehicleType);
+            return Found.ToArray();
 
             //var Found = db.Item.
             //    GroupJoin(db.Owner,
@@ -197,10 +201,11 @@ namespace MittGarage.Models
         public Vehicle[] Search(SearchCtx ctx)
         {
             //Joins Vehicle & Owner on OwnerID
-            var Found = db.Item.
-                GroupJoin(db.Owner,v => v.OwnerID,
-                                   o => o.OwnerID,
-                                   (v, o) => new { v, o })
+            var found = db.Item.
+                GroupJoin(db.Owner,
+                          v => v.OwnerID,
+                          o => o.OwnerID,
+                          (v, o) => new { v, o })
                 //Counts-as LEFT JOIN
                 .SelectMany(v => v.o.DefaultIfEmpty(),
                            (v, o) => new { v.v, o })
@@ -210,30 +215,37 @@ namespace MittGarage.Models
                           t => t.VTID,
                           (vo, t) => new { vo, t })
                 //Counts-as LEFT JOIN
-                .SelectMany(vot => vot.t.DefaultIfEmpty(), 
-                                   (vot, t) => new{regNr = vot.vo.v.RegNr,
-                                                   Owner = vot.vo.o.Name,
-                                                   Vehicle = t.VType,
-                                                   InDate = vot.vo.v.checkInDate,
-                                                   WheelCount = vot.vo.v.Wheels,
-                                                   VehicleBrand = vot.vo.v.Brand});
-            return Found;
+                .SelectMany(vot => vot.t.DefaultIfEmpty(),
+                            (vot, t) => new Vehicle(vot.vo.v.RegNr,
+                                                    vot.vo.o.Name,
+                                                    null,
+                                                    vot.vo.v.Wheels,
+                                                    vot.vo.v.Brand,
+                                                    vot.vo.v.Color,
+                                                    vot.vo.v.checkInDate
+                                                    ))
+                .Where(a => ctx.Typestring == null || a.VehicleType.ToString() == ctx.Typestring)
+                .Where(a => !ctx.OnlyToday || DateTime.Now.Day == a.checkInDate.Day)
+                .Where(a => ctx.Searchstring == a.RegNr || ctx.Searchstring == a.Owner)
+                .ToList();
+
+            return found.ToArray();
 
             //--Old Stuff--
             //return vehicles
             //    .Where(v => ctx.Type == VehicleType.none || ctx.Type == v.Type)
-            //    .Where(v => !ctx.OnlyToday 
+            //    .Where(v => !ctx.OnlyToday
             //                || DateTime.Now.Day == v.checkInDate.Day)
-            //    .Where(v => ctx.Searchstring == v.RegNr 
+            //    .Where(v => ctx.Searchstring == v.RegNr
             //                || ctx.Searchstring == v.Owner)
-            //    .ToArray();  
+            //    .ToArray();
         }
 
         #endregion Specific Search Queries
 
         #endregion --Queries--
 
-        #region --Save & Load Functions-- 
+        #region --Save & Load Functions--
 
         #region Save Garage Function
         public void store()
@@ -287,10 +299,10 @@ namespace MittGarage.Models
         #endregion ClearDump Function
 
         #region Garage Constructor
-      
+
 
         public Garage(string id, uint capacity)
-           
+
         {
             db = new ItemContext();
             vehicles = db.Item.ToList();
