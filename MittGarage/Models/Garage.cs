@@ -13,7 +13,7 @@ using MittGarage.DataAccessLayer;
 namespace MittGarage.Models
 {
     [Serializable()]
-    public class Garage : IEnumerable<Vehicle>
+    public class Garage : IEnumerable<Vehicle>, IDisposable
     {
         protected List<Vehicle> vehicles;
 
@@ -217,6 +217,11 @@ namespace MittGarage.Models
             vehicles = db.Vehicles.ToList();
             this.Id = id;
             this.Capacity = capacity;
+        }
+
+        public void Dispose()
+        {
+            if (db != null) db.Dispose();
         }
     }
 }
