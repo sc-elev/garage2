@@ -17,8 +17,6 @@ namespace MittGarage.Models
     {
         protected List<Vehicle> vehicles;
 
-        protected const string PathTemplate = @"../..garage-{0}.bin";
-
         private ItemContext db = new ItemContext();
 
         public string Id { get; private set; }
@@ -184,12 +182,16 @@ namespace MittGarage.Models
         /// </param>
         public Vehicle[] Search(string owner = null,
                                 string regNr = null,
-                                string vehicleType = null)
+                                string vehicleType = null,
+                                ColorType color = ColorType.none)
         {
             var Found = JoinVehicles()
                 .Where(a => owner == null || a.Owner.Name == owner)
                 .Where(a => regNr == null || a.RegNr == regNr)
-                .Where(a => vehicleType == null || a.VehicleType.VType == vehicleType);
+                .Where(a => vehicleType == null
+                            || a.VehicleType.VType == vehicleType)
+                .Where(v => color == ColorType.none || v.Color == color)
+                .OrderBy(v => v.checkInDate);
             return Found.ToArray();
         }
 

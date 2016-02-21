@@ -205,7 +205,6 @@ namespace MittGarage.Controllers
             var car = new Vehicle(ctx.Owner);
             car.VehicleType = new VehicleType{ VType = "car"};
             car.RegNr = ctx.RegNr;
-            Garage garage = new Garage("default", 50);
             garage.Add(car);
             TempData["vehicle"] = car;
             return RedirectToAction("CheckinOK");
@@ -221,7 +220,6 @@ namespace MittGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Admin(SearchCtx ctx)
         {
-            Garage garage = new Garage("default", 50);
             List<Vehicle> found = garage.Search(ctx).ToList();
             if (found.Count == 0) return RedirectToAction("NotFound");
             TempData["vehicles"] = found;
