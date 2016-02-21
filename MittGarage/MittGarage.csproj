@@ -192,6 +192,70 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602201516462_v9.cs" />
+    <Compile Include="Migrations\201602201516462_v9.Designer.cs">
+      <DependentUpon>201602201516462_v9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201520486_v10.cs" />
+    <Compile Include="Migrations\201602201520486_v10.Designer.cs">
+      <DependentUpon>201602201520486_v10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201522069_v11.cs" />
+    <Compile Include="Migrations\201602201522069_v11.Designer.cs">
+      <DependentUpon>201602201522069_v11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201524572_v12.cs" />
+    <Compile Include="Migrations\201602201524572_v12.Designer.cs">
+      <DependentUpon>201602201524572_v12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201529464_v13.cs" />
+    <Compile Include="Migrations\201602201529464_v13.Designer.cs">
+      <DependentUpon>201602201529464_v13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201538531_v14.cs" />
+    <Compile Include="Migrations\201602201538531_v14.Designer.cs">
+      <DependentUpon>201602201538531_v14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201543421_v15.cs" />
+    <Compile Include="Migrations\201602201543421_v15.Designer.cs">
+      <DependentUpon>201602201543421_v15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201546288_v16.cs" />
+    <Compile Include="Migrations\201602201546288_v16.Designer.cs">
+      <DependentUpon>201602201546288_v16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201547418_v17.cs" />
+    <Compile Include="Migrations\201602201547418_v17.Designer.cs">
+      <DependentUpon>201602201547418_v17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201551132_v18.cs" />
+    <Compile Include="Migrations\201602201551132_v18.Designer.cs">
+      <DependentUpon>201602201551132_v18.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201552434_v19.cs" />
+    <Compile Include="Migrations\201602201552434_v19.Designer.cs">
+      <DependentUpon>201602201552434_v19.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201557598_v20.cs" />
+    <Compile Include="Migrations\201602201557598_v20.Designer.cs">
+      <DependentUpon>201602201557598_v20.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201559203_21.cs" />
+    <Compile Include="Migrations\201602201559203_21.Designer.cs">
+      <DependentUpon>201602201559203_21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201601085_v22.cs" />
+    <Compile Include="Migrations\201602201601085_v22.Designer.cs">
+      <DependentUpon>201602201601085_v22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201612212_v23.cs" />
+    <Compile Include="Migrations\201602201612212_v23.Designer.cs">
+      <DependentUpon>201602201612212_v23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201613304_v24.cs" />
+    <Compile Include="Migrations\201602201613304_v24.Designer.cs">
+      <DependentUpon>201602201613304_v24.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Garage.cs" />
@@ -333,6 +397,56 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201602201516462_v9.resx">
+      <DependentUpon>201602201516462_v9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201520486_v10.resx">
+      <DependentUpon>201602201520486_v10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201522069_v11.resx">
+      <DependentUpon>201602201522069_v11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201524572_v12.resx">
+      <DependentUpon>201602201524572_v12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201529464_v13.resx">
+      <DependentUpon>201602201529464_v13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201538531_v14.resx">
+      <DependentUpon>201602201538531_v14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201543421_v15.resx">
+      <DependentUpon>201602201543421_v15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201546288_v16.resx">
+      <DependentUpon>201602201546288_v16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201547418_v17.resx">
+      <DependentUpon>201602201547418_v17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201551132_v18.resx">
+      <DependentUpon>201602201551132_v18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201552434_v19.resx">
+      <DependentUpon>201602201552434_v19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201557598_v20.resx">
+      <DependentUpon>201602201557598_v20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201559203_21.resx">
+      <DependentUpon>201602201559203_21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201601085_v22.resx">
+      <DependentUpon>201602201601085_v22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201612212_v23.resx">
+      <DependentUpon>201602201612212_v23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201613304_v24.resx">
+      <DependentUpon>201602201613304_v24.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

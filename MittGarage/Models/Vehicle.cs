@@ -11,43 +11,76 @@ using MittGarage.Models;
 
 namespace MittGarage.Models
 {
+    public enum ColorType
+    {
+        black,
+        white,
+        red,
+        green,
+        yellow,
+        blue,
+        cyan,
+        none
+    };
 
-    #region --Base of Items in Garage--
+
     /// <summary>
     /// The base of all items in the garage.
     /// </summary>
     [Serializable()]
     public class Vehicle
     {
-        protected static int LastId = 0;
-
-        // Mandatory attributes without defaults.
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; private set; }
+        public int Id { get; set; }
+
+        protected string _typename;
+        protected string _ownername;
+        protected int? _ownerID = (int?)null;
+        protected int? _VTID = (int?)null;
 
         [Required]
-        [ForeignKey("OwnerID")]
-        public int OwnerID { get; set; }
-        public string Owner { get; set; }
+        public int? VTID
+        {
+            get { return VehicleType == null?  _VTID : VehicleType.VTID; }
+            set { _VTID = value; }
+        }
 
-        [Required]
+        public string Typename
+        {
+            get { return VehicleType != null ? VehicleType.VType : _typename; }
+            set { _typename = value; }
+        }
+
         [ForeignKey("VTID")]
-        public int VTID {get; set;}
-        public string VehicleType { get; set; }
+        public VehicleType VehicleType { get; set; }
 
-        public DateTime checkInDate { get; protected set; }
+        [Required]
+        public int? OwnerID
+        {
+            get { return Owner == null ? _ownerID : Owner.OwnerID; }
+            set { _ownerID = value;  }
+        }
 
-        // Searchable, optional attributes.
-        public string Color { get; protected set; }
+        public string OwnerName
+        {
+            get { return Owner == null ? _ownername : Owner.Name; }
+            set { _ownername = value; }
+        }
 
-        public int Wheels { get; protected set; }
+        [ForeignKey("OwnerID")]
+        public Owner Owner { get; set;}
+
+        public DateTime checkInDate { get; set; }
+
+        public ColorType Color { get; set; }
+
+        public int Wheels { get; set; }
 
         public string RegNr { get; set; }
 
-        public string Brand { get; protected set; }
-        #endregion Searchable Optional Attributes
+        public string Brand { get; set; }
+
 
         // Two Vehicles are the same if they have the same Id.
         public override bool Equals(System.Object other)
@@ -58,48 +91,33 @@ namespace MittGarage.Models
             return Id == v.Id;
         }
 
+
         public override int GetHashCode()
         {
             return Id.GetHashCode();
         }
 
-        // Parse and store commandline attributes.
-        // Default implementation takes <reg nr> [type [color]]
-        public virtual Vehicle Init(List<string> attr)
+
+        protected ColorType ParseColor(string s)
         {
-            if (attr.Count == 0)
+            try
             {
-                throw new ArgumentException("Missing required regnr");
+                return (ColorType)Enum.Parse(typeof(ColorType), s.ToLower());
             }
-            this.RegNr = attr[0];
-            if (attr.Count > 1)
+            catch (ArgumentException)
             {
-                this.Brand = attr[1];
+                throw new ArgumentException("Illegal color: " + s);
             }
-            return this;
         }
 
-        private int GetName (string name)
-        {
-            var db = new ItemContext();
-            IList<Owner> Found = db.Owner.Where(g => g.Name == name).ToList();
-            if (Found.Count == 0)
-            {
-                db.Owner.Add(new Owner(name));
-                db.SaveChanges();
-            }
 
-            Owner o = db.Owner.Where(ow => ow.Name == name).First();
-            return o.OwnerID;
-        }
-
-        private int GetType(string type)
+        private int GetIdByType(string type)
         {
             var db = new ItemContext();
             IList found = db.Types.Where(t => t.VType == type).ToList();
             if (found.Count == 0)
             {
-                db.Types.Add(new VehicleType(type));
+                db.Types.Add(new VehicleType{VType = type});
                 db.SaveChanges();
             }
 
@@ -107,33 +125,32 @@ namespace MittGarage.Models
             return vt.VTID;
         }
 
-        //public Vehicle( string owner , string type, Object now = null)
-        //{
-        //    if (owner == null || type == null)
-        //        throw new ArgumentNullException();
-        //    LastId += 1;
-        //    OwnerID = GetName(owner);
-        //    VTID = GetType(type);
-        //    Id = LastId;
-        //    Color = ColorType.none;
-        //    RegNr = null;
-        //    Wheels = -1;
-        //    checkInDate = now == null ? DateTime.Now : (DateTime)now;
-        //}
 
-        public Vehicle( string regNr, string Name, Object now, int Wheels, string Brand, string Color, DateTime checkinTime)
+        private int GetIdByName(string name)
         {
-            this.RegNr = regNr;
-            this.Owner = Name;
-            this.Wheels = Wheels;
-            this.Brand = Brand;
-            this.Color = Color;
-            this.checkInDate = checkinTime;
+            var db = new ItemContext();
+            IList found = db.Owner.Where(t => t.Name == name).ToList();
+            if (found.Count == 0)
+            {
+                //db.Owner.Add(new Owner { Name = name }); FIXME
+                db.SaveChanges();
+            }
+
+            Owner owner = db.Owner.Where(ty => ty.Name == name).First();
+            return owner.OwnerID;
         }
 
-        public Vehicle(string owner)
+
+        public Vehicle(string owner, DateTime? now = null)
         {
-            this.Owner = owner;
+            this.OwnerID = GetIdByName(owner);
+            Color = ColorType.none;
+            RegNr = null;
+            Wheels = -1;
+            checkInDate = now == null ? DateTime.Now : (DateTime)now;
         }
+
+
+        public Vehicle() : this("Unknown") { }
     }
 }

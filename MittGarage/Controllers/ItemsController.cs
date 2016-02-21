@@ -203,7 +203,7 @@ namespace MittGarage.Controllers
         public ActionResult CheckIn(VehicleCtx ctx)
         {
             var car = new Vehicle(ctx.Owner);
-            car.VehicleType = "car";
+            car.VehicleType = new VehicleType{ VType = "car"};
             car.RegNr = ctx.RegNr;
             Garage garage = new Garage("default", 50);
             garage.Add(car);

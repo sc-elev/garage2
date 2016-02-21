@@ -12,11 +12,11 @@ namespace MittGarage.Models
         public int OwnerID { get; set; }
 
         public string Name { get; set; }
-        
-        public Owner(string name)
+
+        public override string ToString()
         {
-            Name = name;
+            return Name;
         }
-        public Owner(){}
+
     }
 }

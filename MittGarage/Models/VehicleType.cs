@@ -13,10 +13,9 @@ namespace MittGarage.Models
 
         public string VType { get; set; }
 
-        public VehicleType(string type)
+        public override string ToString()
         {
-            VType = type;
+            return VType;
         }
-        public VehicleType(){}
     }
 }
