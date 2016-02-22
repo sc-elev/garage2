@@ -206,14 +206,7 @@ namespace MittGarage.Controllers
             ctx.TypesById = garage.TypesById();
             if (ctx.Results.Count == 0)
             {
-                if (ctx.IsPristine())
-                {
-                    ctx.Results = garage.Search(ctx).ToList();
-                }
-                else
-                {
-                    ctx.Results = garage.Search(ctx).ToList();
-                }
+                ctx.Results = garage.Search(ctx).ToList();
             }
             ctx.PagedResults = ctx.Results.ToPagedList(page, 10);
 
