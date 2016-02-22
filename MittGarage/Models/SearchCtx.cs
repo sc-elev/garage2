@@ -20,6 +20,10 @@ namespace MittGarage.Models
         [Display(Name = "Fordonstyp")]
         public string Typestring { set; get; }
 
+        public string SelectedType { set; get; }
+
+        public IDictionary<string, string> TypesById { get; set; }
+
         public IPagedList<Vehicle> PagedResults { set; get; }
 
         public IList<Vehicle> Results { set; get; }
@@ -77,6 +81,7 @@ namespace MittGarage.Models
             OnlyToday = parsedToday;
             Results = new List<Vehicle>();
             PagedResults = Results.ToPagedList(1, 10);
+            SelectedType = "1";
         }
 
         public SearchCtx() : this ("", "false", new VehicleType{ VTID = 0 }) {}

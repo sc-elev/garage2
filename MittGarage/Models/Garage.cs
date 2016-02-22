@@ -110,6 +110,10 @@ namespace MittGarage.Models
                         .ToDictionary(g => g.Key, g => g.Count());
         }
 
+        public IDictionary<string, string> TypesById()
+        {
+            return db.Types.ToDictionary(g => g.VTID.ToString(), g => g.VType);
+        }
 
         protected List<Vehicle> JoinVehicles()
         {
@@ -181,9 +185,11 @@ namespace MittGarage.Models
         public Vehicle[] Search(SearchCtx ctx)
         {
             Minimatcher mm = GetMinimatcher(ctx);
-            var found = JoinVehicles()
-                .Where(a => string.IsNullOrEmpty(ctx.Typestring)
-                            || a.Typename == ctx.Typestring)
+            var vehicles = JoinVehicles();
+            var typesById = TypesById();
+            var found = vehicles
+                .Where(a => ctx.SelectedType == "1"
+                            || a.Typename == typesById[ctx.SelectedType])
                 .Where(a => !ctx.OnlyToday
                             || DateTime.Now.Day == a.checkInDate.Day)
                 .Where(a => mm == null

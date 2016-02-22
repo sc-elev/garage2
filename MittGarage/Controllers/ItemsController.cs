@@ -203,11 +203,12 @@ namespace MittGarage.Controllers
         {
             if (ctx == null) ctx = (SearchCtx)TempData["SearchCtx"];
             if (ctx == null) ctx = new SearchCtx();
+            ctx.TypesById = garage.TypesById();
             if (ctx.Results.Count == 0)
             {
                 if (ctx.IsPristine())
                 {
-                    ctx.Results = garage.Search(new SearchCtx()).ToList();
+                    ctx.Results = garage.Search(ctx).ToList();
                 }
                 else
                 {
@@ -215,6 +216,7 @@ namespace MittGarage.Controllers
                 }
             }
             ctx.PagedResults = ctx.Results.ToPagedList(page, 10);
+
             TempData["vehicles"] = ctx.Results;
             TempData["SearchCtx"] = ctx;
             return View(ctx);

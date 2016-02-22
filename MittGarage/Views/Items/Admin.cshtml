@@ -27,8 +27,11 @@
                 @Html.ValidationMessageFor(model => model.Searchstring)
             </td>
             <td>
-                @Html.EditorFor(model => model.Typestring)
-                @Html.ValidationMessageFor(model => model.Typestring)
+                @Html.DropDownListFor(model => model.SelectedType,
+                                      new SelectList(Model.TypesById, "Key", "Value"))
+
+                @*@Html.EditorFor(model => model.Typestring)
+                @Html.ValidationMessageFor(model => model.Typestring)*@
             </td>
             <td>
                 @Html.CheckBoxFor(model => model.OnlyToday)

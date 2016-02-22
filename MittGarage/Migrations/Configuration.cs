@@ -80,6 +80,8 @@ namespace MittGarage.Migrations
                 db.Owners.AddOrUpdate(o => o.OwnerID, owner);
 
                 VehicleType type;
+                type = new VehicleType { VTID = 0, VType = "-" };
+                db.Types.AddOrUpdate(t => t.VTID, type);
                 type = new VehicleType { VTID = 1, VType = "car"};
                 db.Types.AddOrUpdate(t => t.VTID, type);
                 type = new VehicleType { VTID = 2, VType = "motorcycle"};
@@ -101,37 +103,6 @@ namespace MittGarage.Migrations
                 car = new Vehicle
                 {
                     OwnerID = 2,
-                    VTID = 1,
-                    RegNr = Configuration.createNummerplat(),
-                };
-                db.Vehicles.AddOrUpdate(r => r.Id, car);
-
-                car = new Vehicle
-                {
-                    OwnerID = 3,
-                    VTID = 3,
-                    Brand = "Shark-24"
-                };
-                db.Vehicles.AddOrUpdate(r => r.Id, car);
-
-                car = new Vehicle
-                {
-                    OwnerID = 4,
-                    VTID = 3
-                };
-                db.Vehicles.AddOrUpdate(r => r.Id, car);
-
-                car = new Vehicle
-                {
-                    OwnerID = 5,
-                    VTID = 3,
-                    Brand = "Yamaha"
-                };
-                db.Vehicles.AddOrUpdate(r => r.Id, car);
-
-                car = new Vehicle
-                {
-                    OwnerID = 5,
                     VTID = 2,
                     RegNr = Configuration.createNummerplat(),
                 };
@@ -139,8 +110,39 @@ namespace MittGarage.Migrations
 
                 car = new Vehicle
                 {
-                    OwnerID = 6,
+                    OwnerID = 3,
+                    VTID = 4,
+                    Brand = "Shark-24"
+                };
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
+
+                car = new Vehicle
+                {
+                    OwnerID = 4,
+                    VTID = 4
+                };
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
+
+                car = new Vehicle
+                {
+                    OwnerID = 5,
+                    VTID = 4,
+                    Brand = "Yamaha"
+                };
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
+
+                car = new Vehicle
+                {
+                    OwnerID = 5,
                     VTID = 3,
+                    RegNr = Configuration.createNummerplat(),
+                };
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
+
+                car = new Vehicle
+                {
+                    OwnerID = 6,
+                    VTID = 4,
                     Brand = "Tailwind-33"
                 };
                 db.Vehicles.AddOrUpdate(r => r.Id, car);
@@ -148,21 +150,21 @@ namespace MittGarage.Migrations
                 car = new Vehicle
                 {
                     OwnerID = 7,
-                    VTID = 4,
-                };
-                db.Vehicles.AddOrUpdate(r => r.Id, car);
-
-                car = new Vehicle
-                {
-                    OwnerID = 8,
                     VTID = 5,
                 };
                 db.Vehicles.AddOrUpdate(r => r.Id, car);
 
                 car = new Vehicle
                 {
+                    OwnerID = 8,
+                    VTID = 6,
+                };
+                db.Vehicles.AddOrUpdate(r => r.Id, car);
+
+                car = new Vehicle
+                {
                     OwnerID = 9,
-                    VTID = 1,
+                    VTID = 2,
                     RegNr = Configuration.createNummerplat(),
                     Brand = "Saab"
                 };
@@ -171,7 +173,7 @@ namespace MittGarage.Migrations
                 car = new Vehicle
                 {
                     OwnerID = 10,
-                    VTID = 1,
+                    VTID = 2,
                     RegNr = Configuration.createNummerplat(),
                     Brand = "Volvo",
                 };
@@ -180,7 +182,7 @@ namespace MittGarage.Migrations
                 car = new Vehicle
                 {
                     OwnerID = 11,
-                    VTID = 1,
+                    VTID = 2,
                     RegNr = Configuration.createNummerplat(),
                     Brand = "Subaru",
                 };
@@ -189,7 +191,7 @@ namespace MittGarage.Migrations
                 car = new Vehicle
                 {
                     OwnerID = 12,
-                    VTID = 1,
+                    VTID = 2,
                     RegNr = Configuration.createNummerplat(),
                     Brand = "Datsun",
                 };
