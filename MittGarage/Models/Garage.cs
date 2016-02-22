@@ -53,6 +53,18 @@ namespace MittGarage.Models
                 throw new InvalidOperationException();
             vehicles.Add(vehicle);
             db.Vehicles.Add(vehicle);
+            var type = db.Types.Where(v => v.VTID == vehicle.VTID).First().VType;
+            vehicle.Typename = type;
+
+            var owner = db.Owners.Where(o=>o.Name == vehicle.OwnerName).FirstOrDefault();
+            if (owner == null)
+            {
+                db.Owners.Add(new Owner { Name = vehicle.OwnerName });
+            }
+
+            owner = db.Owners.Where(o => o.Name == vehicle.OwnerName).FirstOrDefault();
+            vehicle.OwnerID = owner.OwnerID;
+            db.Vehicles.Add(vehicle);
             db.SaveChanges();
         }
 
@@ -198,6 +210,30 @@ namespace MittGarage.Models
             return found.ToArray ();
         }
 
+        /// <summary>
+        /// Search for vehicles matching given attributes, return possibly
+        /// empty array of matches.
+        /// </summary>
+        /// <param name='owner'>
+        /// Optional: owner to match, or null for don't care.
+        /// </param>
+        /// <param name='regNr'>
+        /// Optional: registration nr to match, or null for don't care.
+        /// </param>
+        /// <param name='type'>
+        /// Optional: vehicle type or null for don't care.
+        /// </param>
+        /// <param name='color'>
+        /// Optional: color to match, or Color.None for any color.
+        /// </param>
+        public Vehicle[] Search(string term)
+         {
+             var Found = JoinVehicles()
+                 .Where(a => a.RegNr == term
+                                          || a.OwnerName == term
+                                          || a.Id.ToString() == term);
+            return Found.ToArray();
+	 }
 
         public Garage(string id, uint capacity)
         {
@@ -210,6 +246,17 @@ namespace MittGarage.Models
         public void Dispose()
         {
             if (db != null) db.Dispose();
+        }
+
+        public Vehicle VehicleById (int id)
+        {
+            Vehicle v = db.Vehicles.Where(m => m.Id == id).First();
+            Owner o = db.Owners.Where(ow => ow.OwnerID == v.OwnerID).First();
+            VehicleType vt = db.Types.Where(vty => vty.VTID == v.VTID).First();
+
+            v.OwnerName = o.Name;
+            v.Typename = vt.VType;
+            return v;
         }
     }
 }

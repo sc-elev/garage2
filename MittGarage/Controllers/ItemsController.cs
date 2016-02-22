@@ -47,16 +47,11 @@ namespace MittGarage.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CheckOut(string term = null)
+        public ActionResult CheckOut(string term)
         {
             if (term == null) return RedirectToAction("NotFound");
 
-            var model = db.Vehicles
-                            .Where (r => r.RegNr == term
-                                         || r.OwnerName == term
-                                         || r.Id.ToString() == term)
-                            .OrderBy(r => r.RegNr)
-                            .ToList();
+            var model = garage.Search(term);
             return View(model);
         }
 
@@ -167,9 +162,9 @@ namespace MittGarage.Controllers
         #region GET
         // GET: /Items/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
-            Vehicle vehicle = db.Vehicles.Find(id);
+            Vehicle vehicle = garage.VehicleById(id);
             if (vehicle == null)
             {
                 return RedirectToAction("NotFound");
@@ -251,7 +246,8 @@ namespace MittGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Vehicle vehicle = db.Vehicles.Find(id);
+            //Vehicle vehicle = garage.VehicleById(id);
+            Vehicle vehicle = db.Vehicles.Where(v => v.Id == id).First();
             db.Vehicles.Remove(vehicle);
             db.SaveChanges();
             return RedirectToAction("Main");
