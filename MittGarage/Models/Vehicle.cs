@@ -86,7 +86,6 @@ namespace MittGarage.Models
             checkInDate = now == null ? DateTime.Now : (DateTime)now;
         }
 
-
         public Vehicle() : this("Unknown") { }
     }
 }
