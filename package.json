@@ -1,0 +1,25 @@
+{
+  "name": "garage2",
+  "version": "1.0.0",
+  "description": "A simple sharp exercise, dont be to rough...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sc-elev/garage2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sc-elev/garage2/issues"
+  },
+  "homepage": "https://github.com/sc-elev/garage2#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-angular-gettext": "^2.1.11",
+    "install": "^0.5.2",
+    "npm": "^3.7.5"
+  }
+}

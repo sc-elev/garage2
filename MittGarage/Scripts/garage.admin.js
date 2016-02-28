@@ -1,6 +1,9 @@
 ﻿angular.module('Garage.Admin',
-               ['angularUtils.directives.dirPagination', 'Garage.Commons'])
-    .controller('GarageController', function ($scope, GarageService) {
+               ['angularUtils.directives.dirPagination', 'Garage.Commons', 'gettext'])
+    .run(function (gettextCatalog) {
+        gettextCatalog.setCurrentLanguage('sv_SE')
+    })
+    .controller('GarageController', function ($scope, $timeout, GarageService) {
         console.debug('Starting controller')
         function filter(collection, predicate) {
             // Return collection of items where  predicate(item) is true.
@@ -20,7 +23,7 @@
                    date.getYear() == now.getYear();
         }
         $scope.getVehicles = function () {
-            GarageService.getVehicles($scope)
+            GarageService.getVehicles($scope, $timeout)
         }
         $scope.onFilterButton = function () {
             // Update $scope.vehicles to match current filter conditions.
@@ -53,5 +56,6 @@
         $scope.showDetails = false
         $scope.searchString = ""
         $scope.selectedType = "-"
+
         $scope.getVehicles()
     })
