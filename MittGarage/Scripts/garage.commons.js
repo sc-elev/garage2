@@ -5,7 +5,7 @@
         }
     })
     .factory('GarageService',
-             ['$http', function ($http) {
+             ['$http', '$timeout', function ($http, $timeout) {
                  var GarageService = {};
                  function collectionFilter(collection, predicate) {
                      // Return collection of items where predicate(item) is true.
@@ -18,7 +18,7 @@
                      }
                      return result;
                  }
-                 GarageService._getVehicles = function($scope, id) {
+                 GarageService._getVehicles = function($scope, $timeout, id) {
                      // Retrieve all vehicles into $scope.allVehicles and
                      // $scope.vehicles
                      $scope.showLoadMessage = true
@@ -27,11 +27,11 @@
                              $scope.allVehicles = _vehicles ? _vehicles : "Nothing";
                              $scope.vehicles =
                                  JSON.parse(JSON.stringify($scope.allVehicles));
-                             console.debug($scope.vehicles);
-                             $scope.startFade = true;
-                             $timeout(function ()
-                                          { $scope.showLoadMessage = false },
-                                      2000)
+                             console.debug($scope.vehicles)
+                             $scope.startFade = true
+                             //$timeout(function () {
+                             //             $scope.showLoadMessage = false },
+                             //         2000)
                              if (id == -1)
                                  return
                              var vehicles = collectionFilter(
@@ -47,12 +47,12 @@
                             console.error($scope.status);
                         })
                  }
-                 GarageService.getVehicles = function ($scope) {
+                 GarageService.getVehicles = function ($scope, $timeout) {
                      // Retrieve all vehicles into $scope.allVehicles and
                      // $scope.vehicles
                      GarageService._getVehicles($scope, -1)
                  }
-                 GarageService.getVehicle = function ($scope, id) {
+                 GarageService.getVehicle = function ($scope, $timeout, id) {
                      // Retrieve a single, existing vehicle with given id.
                      GarageService._getVehicles($scope, id)
                  }

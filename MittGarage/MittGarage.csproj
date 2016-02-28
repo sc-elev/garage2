@@ -43,7 +43,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -203,17 +204,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602251816278_v3.cs" />
-    <Compile Include="Migrations\201602251816278_v3.Designer.cs">
-      <DependentUpon>201602251816278_v3.cs</DependentUpon>
+    <Compile Include="Migrations\201602280750382_v2.cs" />
+    <Compile Include="Migrations\201602280750382_v2.Designer.cs">
+      <DependentUpon>201602280750382_v2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602260700198_v4.cs" />
-    <Compile Include="Migrations\201602260700198_v4.Designer.cs">
-      <DependentUpon>201602260700198_v4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602260723286_v5.cs" />
-    <Compile Include="Migrations\201602260723286_v5.Designer.cs">
-      <DependentUpon>201602260723286_v5.cs</DependentUpon>
+    <Compile Include="Migrations\201602280805132_v3.cs" />
+    <Compile Include="Migrations\201602280805132_v3.Designer.cs">
+      <DependentUpon>201602280805132_v3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -224,6 +221,8 @@
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\angular-gettext.js" />
+    <Content Include="Scripts\angular-gettext.min.js" />
     <Content Include="Scripts\garage.checkout.js" />
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +323,7 @@
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <None Include=".bin\grunt.cmd" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\garage.admin.js" />
     <Content Include="Scripts\garage.commons.js" />
@@ -1085,6 +1085,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\translations.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1147,14 +1148,11 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602251816278_v3.resx">
-      <DependentUpon>201602251816278_v3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602280750382_v2.resx">
+      <DependentUpon>201602280750382_v2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602260700198_v4.resx">
-      <DependentUpon>201602260700198_v4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602260723286_v5.resx">
-      <DependentUpon>201602260723286_v5.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602280805132_v3.resx">
+      <DependentUpon>201602280805132_v3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

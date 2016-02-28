@@ -1,4 +1,5 @@
-﻿
+﻿<script src="~/Scripts/angular-gettext.js"></script>
+<script src="~/Scripts/translations.js"></script>
 <script src="~/Scripts/garage.commons.js"></script>
 <script src="~/Scripts/garage.admin.js"></script>
 
@@ -9,13 +10,10 @@
         Loading...
     </div>
     <table>
-        <!-- FIXME: Use angular i18n tools -->
-        <!-- https://angular-gettext.rocketeer.be/-->
-        <!-- https://www.nuget.org/packages/angular-gettext -->
-        <tr class="="searchlabels">
-            <td> Regnr/Ägare </td>
-            <td> Fordonstyp </td>
-            <td> Endast dagens </td>
+        <tr class="searchlabels">
+            <td translate> License plate/Owner </td>
+            <td translate> Vehicle type </td>
+            <td translate> Just Today </td>
             <td> &nbsp; </td>
             <td> &nbsp; </td>
         </tr>
@@ -23,16 +21,18 @@
             <td> <input type="text" ng-model="searchString" /> </td>
             <td>
                 <select ng-model="selectedType"
-                        ng-options="type for type in types"/>
+                        ng-options="type for type in types" >
+
+                </select>
 
             </td>
             <td>  <input type="checkbox" ng-model="onlyToday"/> </td>
             <td>
-                <input type="submit" value="Filtrera"
+                <input type="submit" value="{{'Filter'|translate}}"
                        ng-click="onFilterButton()" />
             </td>
             <td>
-                <input type="submit" id="detailsButton" value="Detaljer >>>"
+                <input type="submit" id="detailsButton" value="{{'Details'|translate}} >>>"
                        ng-click="onDetails()"/>
             </td>
         </tr>
@@ -44,32 +44,32 @@
         <table class="lists">
             <tr>
                 <th>
-                    <a href="#" ng-click="orderByField = 'RegNr'">
-                        Regnummer
+                    <a href="#" ng-click="orderByField = 'RegNr'" translate>
+                        License plate
                     </a>
                 </th>
                 <th>
-                    <a href="#" ng-click="orderByField = 'Typename'">
-                        Fordonstyp
+                    <a href="#" ng-click="orderByField = 'Typename'" translate>
+                        Vehicle type
                     </a>
                 </th>
                 <th>
-                    <a href="#" ng-click="orderByField = 'TimeParked'">
-                        Tid
+                    <a href="#" ng-click="orderByField = 'TimeParked'" translate> 
+                        Time
                     </a>
                 </th>
                 <th ng-show="showDetails">
-                    <a href="#" ng-click="orderByField = 'OwnerName'">
-                        Ägare
+                    <a href="#" ng-click="orderByField = 'OwnerName'" translate>
+                        Owner
                     </a>
                 </th>
                 <th ng-show="showDetails">
-                    <a href="#" ng-click="orderByField = 'checkInDate'">
-                        incheckad
+                    <a href="#" ng-click="orderByField = 'checkInDate'" translate>
+                        Checked in at
                     </a>
                 </th>
                 <th ng-show="showDetails">
-                    <a href="#" ng-click="orderByField = 'Id'">
+                    <a href="#" ng-click="orderByField = 'Id'" translate>
                         ID
                     </a>
                 </th>
@@ -87,12 +87,13 @@
                 </td>
                 <td ng-show="showDetails"> {{vehicle.Id}} </td>
                 <td>
-                    <a href="/Items/Delete/{{vehicle.Id}}">Checka ut</a>
+                    <a href="/Items/Delete/{{vehicle.Id}}" translate>Check out</a>
                 </td>
             </tr>
         </table>
 
-        <dir-pagination-controls/>
+        <dir-pagination-controls>
+        </dir-pagination-controls>
     </div>
 
 </form>
