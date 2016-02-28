@@ -53,6 +53,5 @@
         $scope.showDetails = false
         $scope.searchString = ""
         $scope.selectedType = "-"
-        $scope.onlyToday = false
         $scope.getVehicles()
     })

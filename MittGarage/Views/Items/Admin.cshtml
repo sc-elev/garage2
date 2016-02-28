@@ -4,6 +4,10 @@
 
 <form href="" ng-app="Garage.Admin" ng-controller="GarageController">
     @Html.AntiForgeryToken()
+
+    <div class="nofade" ng-hide="showLoadMessage == false" ng-class="{fadeout: startFade}">
+        Loading...
+    </div>
     <table>
         <!-- FIXME: Use angular i18n tools -->
         <!-- https://angular-gettext.rocketeer.be/-->

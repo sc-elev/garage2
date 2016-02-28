@@ -21,12 +21,17 @@
                  GarageService._getVehicles = function($scope, id) {
                      // Retrieve all vehicles into $scope.allVehicles and
                      // $scope.vehicles
+                     $scope.showLoadMessage = true
                      return $http.get('/Items/GetVehicles')
                          .success(function (_vehicles) {
                              $scope.allVehicles = _vehicles ? _vehicles : "Nothing";
                              $scope.vehicles =
                                  JSON.parse(JSON.stringify($scope.allVehicles));
                              console.debug($scope.vehicles);
+                             $scope.startFade = true;
+                             $timeout(function ()
+                                          { $scope.showLoadMessage = false },
+                                      2000)
                              if (id == -1)
                                  return
                              var vehicles = collectionFilter(
@@ -34,6 +39,7 @@
                                      return el.Id == id
                                  })
                              $scope.vehicle = vehicles[0];
+
                          })
                         .error(function (error) {
                             $scope.status =
