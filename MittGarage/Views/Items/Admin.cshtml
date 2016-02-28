@@ -1,147 +1,151 @@
 ﻿@model MittGarage.Models.SearchCtx
 
+<script src="~/Scripts/admin.js"></script>
+
 @{
     ViewBag.Title = "Admininistration";
 }
 
 @using (Html.BeginForm("Admin", "Items"))
 {
-    @Html.AntiForgeryToken()
-    <table>
-        <tr class="="searchlabels">
-            <td>
-                @Html.LabelFor(model => model.Searchstring)
-            </td>
-             <td>
-                @Html.LabelFor(model => model.Typestring)
-            </td>
-            <td>
-                @Html.LabelFor(model => model.OnlyToday)
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                @Html.EditorFor(model => model.Searchstring)
-                @Html.ValidationMessageFor(model => model.Searchstring)
-            </td>
-            <td>
-                @Html.DropDownListFor(model => model.SelectedType,
-                                      new SelectList(Model.TypesById, "Key", "Value"))
-
-                @*@Html.EditorFor(model => model.Typestring)
-                @Html.ValidationMessageFor(model => model.Typestring)*@
-            </td>
-            <td>
-                @Html.CheckBoxFor(model => model.OnlyToday)
-            </td>
-            <td>
-               <input type="submit" value="Filtrera" />
-            </td>
-            <td>
-                <input type="submit" id="detailsButton" value="Detaljer >>>"
-                       onclick="return showDetails()"/>
-            </td>
-
-        </tr>
-    </table>
-
-     <hr/>
-
-    if (Model != null)
-    {
-
-        <table class="lists">
-            <tr>
-
-                <th>
-                    @Html.ActionLink("Regnummer",
-                                      "Sort",
-                                      "Items",
-                                      new { sortOrder = "regnr" },
-                                      null
-                                      )
-
-                </th>
-                <th>
-                    @Html.ActionLink("Fordonstyp",
-                                     "Sort",
-                                     "Items",
-                                     new { sortOrder = "type" },
-                                     null
-                                     )
-                </th>
-                <th>
-                    @Html.ActionLink("Tid",
-                                     "Sort",
-                                     "Items",
-                                     new { sortOrder = "time" },
-                                     null
-                                     )
-                </th>
-                <th class="details">
-                    @Html.ActionLink("Ägare",
-                                      "Sort",
-                                      "Items",
-                                      new { sortOrder = "owner" },
-                                      null
-                                      )
-                </th>
-                <th class="details">
-                    @Html.ActionLink("Incheckad",
-                                      "Sort",
-                                      "Items",
-                                      new { sortOrder = "checkintime" },
-                                      null
-                                      )
-                </th>
-                <th class="details">
-                    @Html.ActionLink("ID",
-                                     "Sort",
-                                      "Items",
-                                     new { sortOrder = "id" },
-                                     null
-                                     )
-                </th>                <th></th>
+    <div ng-controller="GarageController">
+        @Html.AntiForgeryToken()
+        <table>
+            <tr class="="searchlabels">
+                <td>
+                    @Html.LabelFor(model => model.Searchstring)
+                </td>
+                 <td>
+                    @Html.LabelFor(model => model.Typestring)
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.OnlyToday)
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
             </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(model => model.Searchstring)
+                    @Html.ValidationMessageFor(model => model.Searchstring)
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.SelectedType,
+                                          new SelectList(Model.TypesById, "Key", "Value"))
 
-            @foreach (var item in Model.PagedResults.ToList())
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RegNr)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Typename)
-                    </td>
-                    <td>
-			            @Html.Raw(item.TimeParked().ToString(@"dd\ hh\:mm"))
-                    </td>
-                    <td class="details">
-                        @Html.DisplayFor(modelItem => item.OwnerName)
-                    </td>
-                    <td class="details">
-                        @Html.DisplayFor(modelItem => item.checkInDate)
-                    </td>
-                    <td class="details">
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Checka ut",
-                                         "Delete",
-                                         new { id = item.Id })
-                    </td>
-                </tr>
-            }
+                    @*@Html.EditorFor(model => model.Typestring)
+                    @Html.ValidationMessageFor(model => model.Typestring)*@
+                </td>
+                <td>
+                    @Html.CheckBoxFor(model => model.OnlyToday)
+                </td>
+                <td>
+                   <input type="submit" value="Filtrera" />
+                </td>
+                <td>
+                    <input type="submit" id="detailsButton" value="Detaljer >>>"
+                           onclick="return showDetails()"/>
+                </td>
+
+            </tr>
         </table>
-        <div class="pagedList" data-otf-target="#itemslist">
-            @Html.PagedListPager(
-                    Model.PagedResults,
-                    page => Url.Action("Admin", new { page }),
-                    PagedListRenderOptions.MinimalWithItemCountText)
-        </div>
-    }
+
+         <hr/>
+
+        if (Model != null)
+        {
+
+            <table class="lists">
+                <tr>
+
+                    <th>
+                        @Html.ActionLink("Regnummer",
+                                          "Sort",
+                                          "Items",
+                                          new { sortOrder = "regnr" },
+                                          null
+                                          )
+
+                    </th>
+                    <th>
+                        @Html.ActionLink("Fordonstyp",
+                                         "Sort",
+                                         "Items",
+                                         new { sortOrder = "type" },
+                                         null
+                                         )
+                    </th>
+                    <th>
+                        @Html.ActionLink("Tid",
+                                         "Sort",
+                                         "Items",
+                                         new { sortOrder = "time" },
+                                         null
+                                         )
+                    </th>
+                    <th class="details">
+                        @Html.ActionLink("Ägare",
+                                          "Sort",
+                                          "Items",
+                                          new { sortOrder = "owner" },
+                                          null
+                                          )
+                    </th>
+                    <th class="details">
+                        @Html.ActionLink("Incheckad",
+                                          "Sort",
+                                          "Items",
+                                          new { sortOrder = "checkintime" },
+                                          null
+                                          )
+                    </th>
+                    <th class="details">
+                        @Html.ActionLink("ID",
+                                         "Sort",
+                                          "Items",
+                                         new { sortOrder = "id" },
+                                         null
+                                         )
+                    </th>                <th></th>
+                </tr>
+
+                @foreach (var item in Model.PagedResults.ToList())
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RegNr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Typename)
+                        </td>
+                        <td>
+			                @Html.Raw(item.TimeParked().ToString(@"dd\ hh\:mm"))
+                        </td>
+                        <td class="details">
+                            @Html.DisplayFor(modelItem => item.OwnerName)
+                        </td>
+                        <td class="details">
+                            @Html.DisplayFor(modelItem => item.checkInDate)
+                        </td>
+                        <td class="details">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Checka ut",
+                                             "Delete",
+                                             new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="pagedList" data-otf-target="#itemslist">
+                @Html.PagedListPager(
+                        Model.PagedResults,
+                        page => Url.Action("Admin", new { page }),
+                        PagedListRenderOptions.MinimalWithItemCountText)
+            </div>
+        }
+    </div>
 }
 
 <script type="text/javascript">
