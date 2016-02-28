@@ -72,6 +72,16 @@
                 return !$scope.onlyToday || checkDate(el.checkInDate)
             })
         }
+        $scope.onDetails = function () {
+            // Show/hide details section and update button label.
+            $scope.showDetails = !$scope.showDetails;
+            var label = document.getElementById('detailsButton').value
+            if ($scope.showDetails)
+                label = label.replace('>>>', '<<<')
+            else
+                label = label.replace('<<<', '>>>')
+            document.getElementById('detailsButton').value = label
+        }
         GarageService.getTypes()
                 // Retrieve available vehicle types into $scope.types.
                 .success(function (_types) {
