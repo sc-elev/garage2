@@ -224,6 +224,7 @@
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\garage.checkout.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin.js" />

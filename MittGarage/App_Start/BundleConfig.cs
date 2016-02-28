@@ -16,6 +16,7 @@ namespace MittGarage
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js",
+                        "~/Scripts/angular-route.js",
                         "~/Scripts/dirPagination.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

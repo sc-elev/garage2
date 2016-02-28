@@ -1,28 +1,26 @@
 ﻿@model MittGarage.Models.Vehicle
 
-@{
-    ViewBag.Title = "Checka ut";
-}
+<script src="~/Scripts/garage.commons.js"></script>
 
 <h2>Checka ut</h2>
-
-<h3>Är du säker på att du vill checka ut detta fordon?</h3>
-<fieldset>
-    <legend>Vehicle</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.RegNr)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.RegNr)
-    </div>
-
-
-</fieldset>
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    <p>
-        <input type="submit" value="Checka ut" /> |
-        @Html.ActionLink("Tillbaka till huvudmenyn", "Main")
-    </p>
-}
+<div ng-app="Garage.Checkout" ng-controller="CheckoutController">
+    <h3>Är du säker på att du vill checka ut detta fordon?</h3>
+    <fieldset>
+        <legend>Vehicle</legend>
+        <div class="display-label"> Ägare: </div>
+        <div class="display-field"> {{vehicle.OwnerName}} </div>
+        <div class="display-label"> Id: </div>
+        <div class="display-field"> {{vehicle.Id}} </div>
+        <div ngif="vehicle.RegNr">
+            <div class="display-label"> Registreringsnummer: </div>
+            <div class="display-field"> {{vehicle.RegNr}} </div>
+        </div>
+    </fieldset>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <p>
+            <input type="submit" value="Checka ut" /> |
+            @Html.ActionLink("Tillbaka till huvudmenyn", "Main")
+        </p>
+    }
+</div>
