@@ -6,31 +6,33 @@ var GarageApp = angular.module('GarageApp',
                 return new Date(parseInt(x.substr(6)))
             }
     })
-    .factory('GarageService', ['$http', function ($http) {
-        // Retrieve lists of all vehicles and vehicle types from server.
-        var GarageService = {};
+    .factory('GarageService',
+             ['$http', function ($http) {
+                 // Retrieve lists of all vehicles and vehicle types
+                 // from server.
+                 var GarageService = {};
 
-        GarageService.getVehicles = function () {
-            return $http.get('/Items/GetVehicles');
-        };
-        GarageService.getTypes = function () {
-            return $http.get('/Items/GetTypes');
-        };
-        return GarageService;
-    }])
+                 GarageService.getVehicles = function () {
+                     return $http.get('/Items/GetVehicles');
+                 };
+                 GarageService.getTypes = function () {
+                     return $http.get('/Items/GetTypes');
+                 };
+                 return GarageService;
+             }]
+    )
     .controller('GarageController', function ($scope, GarageService) {
         console.debug('Starting controller')
         function filter(collection, predicate) {
             var result = new Array();
 
             for (var j = 0; j < collection.length; j++) {
-                if (predicate(collection[j]) == true) {
+                if (predicate(collection[j])) {
                     result.push(collection[j]);
                 }
             }
             return result;
         }
-
         $scope.getVehicles = function () {
             GarageService.getVehicles()
                 .success(function (_vehicles) {
@@ -86,4 +88,3 @@ var GarageApp = angular.module('GarageApp',
         $scope.getVehicles()
     }
 );
-
