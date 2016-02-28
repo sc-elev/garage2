@@ -5,7 +5,7 @@ GarageApp.factory('GarageService', ['$http', function ($http) {
     var GarageService = {};
 
     GarageService.getVehicles = function () {
-        return $http.get('/Home/GetVehicles');
+        return $http.get('/Items/GetVehicles');
     };
     return GarageService;
 }]);
@@ -24,7 +24,7 @@ GarageApp.controller('GarageController', function ($scope, GarageService) {
             });
 
     }
-    // $scope.getVehicles()
+    $scope.getVehicles()
 
 });
 

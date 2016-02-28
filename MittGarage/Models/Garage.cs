@@ -233,7 +233,12 @@ namespace MittGarage.Models
                                           || a.OwnerName == term
                                           || a.Id.ToString() == term);
             return Found.ToArray();
-	 }
+	    }
+
+        public IList<Vehicle> ListAll()
+        {
+            return JoinVehicles();
+        }
 
         public Garage(string id, uint capacity)
         {

@@ -222,6 +222,12 @@ namespace MittGarage.Controllers
             return ShowAdmin(ctx, page);
         }
 
+        public JsonResult GetVehicles()
+        {
+            var vehicles = garage.ListAll();
+            return Json(vehicles, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Sort(string sortOrder)
         {
             SearchCtx  ctx = (SearchCtx)TempData["SearchCtx"];
