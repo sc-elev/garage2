@@ -246,10 +246,13 @@ namespace MittGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //Vehicle vehicle = garage.VehicleById(id);
             Vehicle vehicle = db.Vehicles.Where(v => v.Id == id).First();
             db.Vehicles.Remove(vehicle);
-            db.SaveChanges();
+            if (TempData.ContainsKey("SearchCtx"))
+            {
+                ((SearchCtx)TempData["SearchCtx"]).Results =
+                    new List<Vehicle>();
+            }
             return RedirectToAction("Main");
         }
 
