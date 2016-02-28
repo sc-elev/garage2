@@ -80,8 +80,6 @@ namespace MittGarage.Migrations
                 db.Owners.AddOrUpdate(o => o.OwnerID, owner);
 
                 VehicleType type;
-                type = new VehicleType { VTID = 0, VType = "-" };
-                db.Types.AddOrUpdate(t => t.VTID, type);
                 type = new VehicleType { VTID = 1, VType = "car"};
                 db.Types.AddOrUpdate(t => t.VTID, type);
                 type = new VehicleType { VTID = 2, VType = "motorcycle"};
@@ -157,7 +155,7 @@ namespace MittGarage.Migrations
                 car = new Vehicle
                 {
                     OwnerID = 8,
-                    VTID = 6,
+                    VTID = 5,
                 };
                 db.Vehicles.AddOrUpdate(r => r.Id, car);
 

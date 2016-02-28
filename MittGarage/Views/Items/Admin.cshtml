@@ -6,6 +6,8 @@
     @Html.AntiForgeryToken()
     <table>
         <!-- FIXME: Use angular i18n tools -->
+        <!-- https://angular-gettext.rocketeer.be/-->
+        <!-- https://www.nuget.org/packages/angular-gettext -->
         <tr class="="searchlabels">
             <td> Regnr/Ägare </td>
             <td> Fordonstyp </td>
@@ -14,22 +16,16 @@
             <td> &nbsp; </td>
         </tr>
         <tr>
+            <td> <input type="text" ng-model="searchString" /> </td>
             <td>
-                @Html.EditorFor(model => model.Searchstring)
-                @Html.ValidationMessageFor(model => model.Searchstring)
-            </td>
-            <td>
-                @Html.DropDownListFor(model => model.SelectedType,
-                                        new SelectList(Model.TypesById, "Key", "Value"))
+                <select ng-model="selectedType"
+                        ng-options="type for type in types"/>
 
-                @*@Html.EditorFor(model => model.Typestring)
-                @Html.ValidationMessageFor(model => model.Typestring)*@
             </td>
+            <td>  <input type="checkbox" ng-model="onlyToday"/> </td>
             <td>
-                @Html.CheckBoxFor(model => model.OnlyToday)
-            </td>
-            <td>
-                <input type="submit" value="Filtrera" />
+                <input type="submit" value="Filtrera"
+                       ng-click="onFilterButton()" />
             </td>
             <td>
                 <input type="submit" id="detailsButton" value="Detaljer >>>"
@@ -56,7 +52,7 @@
                     </a>
                 </th>
                 <th>
-                    <a href="#" ng-click="orderByField =¨'TimeParked'">
+                    <a href="#" ng-click="orderByField = 'TimeParked'">
                         Tid
                     </a>
                 </th>

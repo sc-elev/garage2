@@ -22,7 +22,7 @@ namespace MittGarage.Models
 
         public string SelectedType { set; get; }
 
-        public IDictionary<string, string> TypesById { get; set; }
+        public IDictionary<int, string> TypesById { get; set; }
 
         public IPagedList<Vehicle> PagedResults { set; get; }
 

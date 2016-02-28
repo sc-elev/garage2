@@ -122,9 +122,18 @@ namespace MittGarage.Models
                         .ToDictionary(g => g.Key, g => g.Count());
         }
 
-        public IDictionary<string, string> TypesById()
+        public IDictionary<int, string> TypesById()
         {
-            return db.Types.ToDictionary(g => g.VTID.ToString(), g => g.VType);
+            var typesById =  db.Types.ToDictionary(g => g.VTID,
+                                                    g => g.VType);
+            IDictionary<int, string> retval = new Dictionary<int, string>();
+            foreach (var key in typesById.Keys)
+            {
+                if (retval.Values.Contains(typesById[key]))
+                    continue;
+                retval[key] = typesById[key];
+            }
+            return retval;
         }
 
         protected List<Vehicle> JoinVehicles()
@@ -200,8 +209,8 @@ namespace MittGarage.Models
             var vehicles = JoinVehicles();
             var typesById = TypesById();
             var found = vehicles
-                .Where(a => ctx.SelectedType == "1"
-                            || a.Typename == typesById[ctx.SelectedType])
+                //.Where(a => ctx.SelectedType == "1"
+                //            || a.Typename == typesById[ctx.SelectedType])
                 .Where(a => !ctx.OnlyToday
                             || DateTime.Now.Day == a.checkInDate.Day)
                 .Where(a => mm == null

@@ -228,6 +228,12 @@ namespace MittGarage.Controllers
             return Json(vehicles, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetTypes()
+        {
+            var types = garage.TypesById().Values;
+            return Json(types, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Sort(string sortOrder)
         {
             SearchCtx  ctx = (SearchCtx)TempData["SearchCtx"];
