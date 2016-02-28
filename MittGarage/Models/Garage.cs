@@ -237,7 +237,7 @@ namespace MittGarage.Models
 
         public IList<Vehicle> ListAll()
         {
-            return JoinVehicles();
+            return  JoinVehicles();
         }
 
         public Garage(string id, uint capacity)

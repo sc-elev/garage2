@@ -2,9 +2,6 @@
 
 <script src="~/Scripts/admin.js"></script>
 
-@{
-    ViewBag.Title = "Admininistration";
-}
 
 @using (Html.BeginForm("Admin", "Items"))
 {
@@ -51,70 +48,51 @@
                 <tr>
 
                     <th>
-                        @Html.ActionLink("Regnummer",
-                                          "Sort",
-                                          "Items",
-                                          new { sortOrder = "regnr" },
-                                          null
-                                          )
-
+                        <a href="#" ng-click="orderByField = 'RegNr'">
+                            Regnummer
+                        </a>
                     </th>
                     <th>
-                        @Html.ActionLink("Fordonstyp",
-                                         "Sort",
-                                         "Items",
-                                         new { sortOrder = "type" },
-                                         null
-                                         )
+                        <a href="#" ng-click="orderByField = 'Typename'">
+                            Fordonstyp
+                        </a>
                     </th>
                     <th>
-                        @Html.ActionLink("Tid",
-                                         "Sort",
-                                         "Items",
-                                         new { sortOrder = "time" },
-                                         null
-                                         )
+                        <a href="#" ng-click="orderByField =¨'TimeParked'">
+                            Tid
+                        </a>
                     </th>
                     <th class="details">
-                        @Html.ActionLink("Ägare",
-                                          "Sort",
-                                          "Items",
-                                          new { sortOrder = "owner" },
-                                          null
-                                          )
+                        <a href="#" ng-click="orderByField = 'OwnerName'">
+                            Ägare
+                        </a>
                     </th>
                     <th class="details">
-                        @Html.ActionLink("Incheckad",
-                                          "Sort",
-                                          "Items",
-                                          new { sortOrder = "checkintime" },
-                                          null
-                                          )
+                        <a href="#" ng-click="orderByField = 'checkInDate'">
+                            incheckad
+                        </a>
                     </th>
                     <th class="details">
-                        @Html.ActionLink("ID",
-                                         "Sort",
-                                          "Items",
-                                         new { sortOrder = "id" },
-                                         null
-                                         )
-                    </th>                <th></th>
+                        <a href="#" ng-click="orderByField = 'Id'">
+                            ID
+                        </a>
+                    </th>
+                    <th></th>
                 </tr>
 
-                <tr ng-repeat="vehicle in vehicles">
+                <tr ng-repeat="vehicle in vehicles | orderBy:orderByField">
                     <td> {{vehicle.RegNr}} </td>
                     <td> {{vehicle.Typename}} </td>
-                    <td>
-                        FIXME (parking time)
-                        @*@Html.Raw(item.TimeParked().ToString(@"dd\ hh\:mm"))*@
-                    </td>
-                    <td class="details"> {{vehicles.OwnerName}} </td>
+                    <td> {{vehicle.TimeParked}} </td>
+                    <td class="details"> {{vehicle.OwnerName}} </td>
                     <td class="details"> {{vehicle.checkInDate}} </td>
+                    @*FIXME: http://stackoverflow.com/questions/22435212/angular-js-format-date-from-json-object*@
                     <td class="details"> {{vehicle.Id}} </td>
                     <td>
-                        @Html.ActionLink("Checka ut",
+                        <a href="/Items/Delete/{{vehicle.Id}}">Checka ut</a>
+                        @*@Html.ActionLink("Checka ut",
                                              "Delete",
-                                             new { Id = 5 }) <!--FIXME-->
+                                             new { Id = 5 })*@ <!--FIXME-->
                     </td>
                 </tr>
 

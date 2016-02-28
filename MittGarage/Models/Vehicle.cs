@@ -46,6 +46,8 @@ namespace MittGarage.Models
 
         public DateTime checkInDate { get; set; }
 
+
+
         public ColorType Color { get; set; }
 
         public int Wheels { get; set; }
@@ -53,6 +55,16 @@ namespace MittGarage.Models
         public string RegNr { get; set; }
 
         public string Brand { get; set; }
+
+        public string TimeParked
+        {
+            get
+            {
+                return (DateTime.Now - checkInDate).ToString(@"dd\ hh\:mm");
+            }
+            set { }
+        }
+
 
 
         // Two Vehicles are the same if they have the same Id.
@@ -70,11 +82,6 @@ namespace MittGarage.Models
             return Id.GetHashCode();
         }
 
-
-        public TimeSpan TimeParked()
-        {
-            return DateTime.Now - checkInDate;
-        }
 
 
         public Vehicle(string owner, DateTime? now = null)
