@@ -24,7 +24,7 @@ GarageApp.controller('GarageController', function ($scope, GarageService) {
             });
 
     }
+    $scope.showDetails = false
     $scope.getVehicles()
-
 });
 
