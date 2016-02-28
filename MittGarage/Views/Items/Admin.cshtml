@@ -1,5 +1,4 @@
-﻿@model MittGarage.Models.SearchCtx
-
+﻿
 <script src="~/Scripts/admin.js"></script>
 
 <form href="" ng-controller="GarageController">
@@ -73,7 +72,7 @@
                 <th></th>
             </tr>
 
-            <tr ng-repeat="vehicle in vehicles | orderBy:orderByField">
+            <tr dir-paginate="vehicle in vehicles | orderBy:orderByField | itemsPerPage: 10">
                 <td> {{vehicle.RegNr}} </td>
                 <td> {{vehicle.Typename}} </td>
                 <td> {{vehicle.TimeParked}} </td>
@@ -87,14 +86,8 @@
                 </td>
             </tr>
         </table>
-        @*<div class="pagedList" data-otf-target="#itemslist">
-        http://stackoverflow.com/questions/11581209/pagination-on-a-list-using-ng-repeat
-        (#8)
-        @Html.PagedListPager(
-                Model.PagedResults,
-                page => Url.Action("Admin", new { page }),
-                PagedListRenderOptions.MinimalWithItemCountText)
-    </div>*@
+
+        <dir-pagination-controls/>
     </div>
 
 </form>

@@ -1,5 +1,6 @@
 ﻿
-var GarageApp = angular.module('GarageApp', [])
+var GarageApp = angular.module('GarageApp',
+                               ['angularUtils.directives.dirPagination'])
     .filter("jsDate", function () {
             return function (x) {
                 return new Date(parseInt(x.substr(6)))
