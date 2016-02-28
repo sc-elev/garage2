@@ -78,8 +78,9 @@
                 <td> {{vehicle.Typename}} </td>
                 <td> {{vehicle.TimeParked}} </td>
                 <td ng-show="showDetails"> {{vehicle.OwnerName}} </td>
-                <td ng-show="showDetails"> {{vehicle.checkInDate}} </td>
-                @*FIXME: http://stackoverflow.com/questions/22435212/angular-js-format-date-from-json-object*@
+                <td ng-show="showDetails">
+                    {{vehicle.checkInDate | jsDate | date : 'yy-MM-dd HH:mm'}}
+                </td>
                 <td ng-show="showDetails"> {{vehicle.Id}} </td>
                 <td>
                     <a href="/Items/Delete/{{vehicle.Id}}">Checka ut</a>
