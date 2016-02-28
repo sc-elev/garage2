@@ -34,12 +34,12 @@ GarageApp.controller('GarageController', function ($scope, GarageService) {
                 $scope.allVehicles = _vehicles ? _vehicles : "Nothing";
                 $scope.vehicles =
                     JSON.parse(JSON.stringify($scope.allVehicles));
-                console.log($scope.vehicles);
+                console.debug($scope.vehicles);
             })
             .error(function (error) {
                 $scope.status = 'Unable to load garage vehicle data: ' +
                     error.message;
-                console.log($scope.status);
+                console.error($scope.status);
             });
     }
     $scope.onFilterButton = function () {
@@ -61,12 +61,12 @@ GarageApp.controller('GarageController', function ($scope, GarageService) {
             .success(function (_types) {
                 $scope.types = _types;
                 $scope.types.unshift("-")
-                console.log($scope.types);
+                console.debug($scope.types);
             })
             .error(function (error) {
                 $scope.status = 'Unable to load garage type data: ' +
                     error.message;
-                console.log($scope.status);
+                console.error($scope.status);
             });
 });
 
