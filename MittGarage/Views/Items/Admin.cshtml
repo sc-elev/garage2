@@ -54,17 +54,17 @@
                         Tid
                     </a>
                 </th>
-                <th class="details">
+                <th ng-show="showDetails">
                     <a href="#" ng-click="orderByField = 'OwnerName'">
                         Ägare
                     </a>
                 </th>
-                <th class="details">
+                <th ng-show="showDetails">
                     <a href="#" ng-click="orderByField = 'checkInDate'">
                         incheckad
                     </a>
                 </th>
-                <th class="details">
+                <th ng-show="showDetails">
                     <a href="#" ng-click="orderByField = 'Id'">
                         ID
                     </a>
@@ -72,7 +72,8 @@
                 <th></th>
             </tr>
 
-            <tr dir-paginate="vehicle in vehicles | orderBy:orderByField | itemsPerPage: 10">
+            <tr dir-paginate="vehicle in vehicles
+                              | orderBy:orderByField | itemsPerPage: 10">
                 <td> {{vehicle.RegNr}} </td>
                 <td> {{vehicle.Typename}} </td>
                 <td> {{vehicle.TimeParked}} </td>
