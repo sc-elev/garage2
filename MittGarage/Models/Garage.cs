@@ -51,19 +51,18 @@ namespace MittGarage.Models
         {
             if (vehicles.Count >= Capacity)
                 throw new InvalidOperationException();
-            vehicles.Add(vehicle);
-            db.Vehicles.Add(vehicle);
-            var type = db.Types.Where(v => v.VTID == vehicle.VTID).First().VType;
-            vehicle.Typename = type;
-
             var owner = db.Owners.Where(o=>o.Name == vehicle.OwnerName).FirstOrDefault();
             if (owner == null)
             {
+                db.SaveChanges();
                 db.Owners.Add(new Owner { Name = vehicle.OwnerName });
+                db.SaveChanges();
             }
-
             owner = db.Owners.Where(o => o.Name == vehicle.OwnerName).FirstOrDefault();
             vehicle.OwnerID = owner.OwnerID;
+            var type = db.Types.Where(v => v.VTID == vehicle.VTID).First().VType;
+            vehicle.Typename = type;
+            vehicles.Add(vehicle);
             db.Vehicles.Add(vehicle);
             db.SaveChanges();
         }

@@ -189,6 +189,7 @@ namespace MittGarage.Controllers
         {
             var car = new Vehicle(ctx.Owner);
             car.RegNr = ctx.RegNr;
+            car.VTID = 1;
             garage.Add(car);
             TempData["vehicle"] = car;
             return RedirectToAction("CheckinOK");

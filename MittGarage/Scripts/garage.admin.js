@@ -5,7 +5,7 @@
     })
     .controller('GarageController', function ($scope, $timeout, GarageService) {
         console.debug('Starting controller')
-        function filter(collection, predicate) {
+        function filter(collection, predicate) {http://localhost:49627/../App_Data
             // Return collection of items where  predicate(item) is true.
             var result = new Array();
             for (var j = 0; j < collection.length; j++) {
