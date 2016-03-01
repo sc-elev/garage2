@@ -29,11 +29,11 @@
             <td>  <input type="checkbox" ng-model="onlyToday"/> </td>
             <td>
                 <input type="submit" value="{{'Filter'|translate}}"
-                       ng-click="onFilterButton()" />
+                       ng-click="onFilterButton()" class="btn btn-primary" />
             </td>
             <td>
                 <input type="submit" id="detailsButton" value="{{'Details'|translate}} >>>"
-                       ng-click="onDetails()"/>
+                       ng-click="onDetails()" class="btn btn-primary"/>
             </td>
         </tr>
     </table>
@@ -54,7 +54,7 @@
                     </a>
                 </th>
                 <th>
-                    <a href="#" ng-click="orderByField = 'TimeParked'" translate> 
+                    <a href="#" ng-click="orderByField = 'TimeParked'" translate>
                         Time
                     </a>
                 </th>

@@ -11,12 +11,12 @@
         @Html.AntiForgeryToken()
         <div>Ägare/Registreringsnummer/checkin id</div>
         <input type="text" name="term" />
-        <input type="submit" value="Hitta" />
+        <input type="submit" value="Hitta" class="btn btn-lg btn-primary" />
     }
 </div>
 
 @if  (Model != null)
-{ 
+{
     <table>
         <tr>
             <th>

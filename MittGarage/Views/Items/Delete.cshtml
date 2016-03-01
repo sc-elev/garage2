@@ -29,7 +29,7 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         <p>
-            <input type="submit" value="Checka ut" /> |
+            <input type="submit" value="Checka ut" class="btn btn-primary btn-large"/> |
             @Html.ActionLink("Tillbaka till huvudmenyn", "Main")
         </p>
     }

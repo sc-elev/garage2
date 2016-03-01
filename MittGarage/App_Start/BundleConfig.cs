@@ -29,8 +29,10 @@ namespace MittGarage
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                        "~/Content/site.css",
-                        "~/Content/PagedList.css"));
+                        "~/Content/PagedList.css",
+                        "~/Content/bootstrap.css",
+                        "~/Content/site.css"
+            ));
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
                         "~/Content/themes/base/jquery.ui.resizable.css",
