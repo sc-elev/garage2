@@ -1,20 +1,30 @@
 ﻿@model MittGarage.Models.Vehicle
 
 <script src="~/Scripts/garage.commons.js"></script>
+<script src="~/Scripts/garage.checkout.js"></script>
 
 <h2>Checka ut</h2>
 <div ng-app="Garage.Checkout" ng-controller="CheckoutController">
     <h3>Är du säker på att du vill checka ut detta fordon?</h3>
     <fieldset>
         <legend>Vehicle</legend>
-        <div class="display-label"> Ägare: </div>
-        <div class="display-field"> {{vehicle.OwnerName}} </div>
-        <div class="display-label"> Id: </div>
-        <div class="display-field"> {{vehicle.Id}} </div>
-        <div ngif="vehicle.RegNr">
-            <div class="display-label"> Registreringsnummer: </div>
-            <div class="display-field"> {{vehicle.RegNr}} </div>
-        </div>
+        <table>
+            <tr>
+                <td class="display-label"> Ägare: </td>
+                <td class="display-field"> {{vehicle.OwnerName}} </td>
+            </tr>
+            <tr>
+                <td class="display-label"> Id: </td>
+                <td class="display-field"> {{vehicle.Id}} </td>
+            </tr>
+
+            <div ngif="vehicle.RegNr">
+                <tr>
+                    <td class="display-label"> Registreringsnummer: </td>
+                    <td class="display-field"> {{vehicle.RegNr}} </td>
+                </tr>
+            </div>
+        </table>
     </fieldset>
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

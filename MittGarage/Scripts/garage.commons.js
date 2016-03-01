@@ -18,7 +18,7 @@
                      }
                      return result;
                  }
-                 GarageService._getVehicles = function($scope, $timeout, id) {
+                 GarageService._getVehicles = function($scope, id) {
                      // Retrieve all vehicles into $scope.allVehicles and
                      // $scope.vehicles
                      $scope.showLoadMessage = true
@@ -47,12 +47,12 @@
                             console.error($scope.status);
                         })
                  }
-                 GarageService.getVehicles = function ($scope, $timeout) {
+                 GarageService.getVehicles = function ($scope) {
                      // Retrieve all vehicles into $scope.allVehicles and
                      // $scope.vehicles
                      GarageService._getVehicles($scope, -1)
                  }
-                 GarageService.getVehicle = function ($scope, $timeout, id) {
+                 GarageService.getVehicle = function ($scope, id) {
                      // Retrieve a single, existing vehicle with given id.
                      GarageService._getVehicles($scope, id)
                  }
